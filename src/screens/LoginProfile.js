@@ -11,6 +11,7 @@ import Button from 'react-native-button';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import DatePicker from 'react-native-datepicker';
+import { Picker } from '@react-native-community/picker';
 
 const Login = (props) => {
   let [fontsLoaded] = useFonts({
@@ -21,8 +22,8 @@ const Login = (props) => {
   const [name, Name] = useState('');
   const [lastname, Lastname] = useState('');
   const [dni, Dni] = useState('');
-  const [birthdate, Birthdate] = useState('15-05-2018');
-  const [gender, Gender] = useState('');
+  const [birthdate, Birthdate] = useState('15-05-1990');
+  const [gender, setGender] = useState('');
   const [phone, Phone] = useState('');
 
   if (!fontsLoaded) {
@@ -69,42 +70,50 @@ const Login = (props) => {
           value={dni}
         />
 
-        {/* <TextInput
-          style={styles.Input}
-          placeholder="Fecha de nacimiento"
-          onChangeText={(birthdate) => Birthdate(birthdate)}
-          value={birthdate}
-        /> */}
         <DatePicker
-          style={styles.Input}
+          style={{
+            height: 50,
+            backgroundColor: 'white',
+            paddingLeft: 25,
+            borderRadius: 15,
+            margin: 10,
+            marginHorizontal: 25,
+            justifyContent: 'center',
+            width: 360,
+          }}
           date={birthdate} //initial date from state
           mode="date" //The enum of date, datetime and time
           placeholder="select date"
           format="DD-MM-YYYY"
-          minDate="01-01-2016"
-          maxDate="01-01-2019"
+          minDate="01-01-1901"
+          maxDate="31-12-2020"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
-          /* customStyles={{
+          customStyles={{
             dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0,
+              marginRight: 10,
+              // position: 'absolute',
+              // left: 0,
+              // top: 4,
+              // marginLeft: 0,
             },
             dateInput: {
-              marginLeft: 36,
+              borderWidth: 0,
+              alignItems: 'flex-start',
+              fontFamily: 'Montserrat-Medium',
             },
-          }} */
+          }}
           onDateChange={(birthdate) => Birthdate(birthdate)}
         />
-
-        <TextInput
-          style={styles.Input}
-          placeholder="Género"
-          onChangeText={(gender) => Gender(gender)}
-          value={gender}
-        />
+        <View style={styles.InputPicker}>
+          <Picker
+            selectedValue={gender}
+            onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+          >
+            <Picker.Item label="Masculino" value="masculino" />
+            <Picker.Item label="Femenino" value="femenino" />
+          </Picker>
+        </View>
 
         <TextInput
           style={styles.Input}
@@ -118,7 +127,7 @@ const Login = (props) => {
             style={styles.Button}
             onPress={() => props.navigation.navigate('Welcome')}
           >
-            Continuar
+            Crear
           </Button>
         </View>
       </ScrollView>
@@ -134,10 +143,18 @@ const styles = StyleSheet.create({
     marginTop: 80,
   },
   Input: {
-    //flex: 1,
     height: 50,
     backgroundColor: 'white',
     paddingLeft: 25,
+    borderRadius: 15,
+    fontFamily: 'Montserrat-Medium',
+    margin: 10,
+    marginHorizontal: 25,
+  },
+  InputPicker: {
+    height: 50,
+    backgroundColor: 'white',
+    paddingLeft: 18,
     borderRadius: 15,
     fontFamily: 'Montserrat-Medium',
     margin: 10,
@@ -159,30 +176,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 20,
   },
-
-  LoginInput: {
-    //flex: 1,
-  },
-  Header: {
-    //width: '100%',
-    //flex: 0.4,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-
-  InputRow: {
-    //flex: 1,
-    //flexDirection: 'row',
-    alignItems: 'center',
-    width: 360,
-  },
-  /* Input: {
-    //flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '100%',
-    //flex: 0.3,
-    alignItems: 'center',
-  }, */
 });
 
 export default Login;
