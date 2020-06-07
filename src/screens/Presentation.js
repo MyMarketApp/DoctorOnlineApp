@@ -11,7 +11,7 @@ const Presentation = (props) => {
           source={require("../../assets/Flash.png")}
         />
         <Text style={styles.Title}>Doctor Online</Text>
-        <Text>Buah amiguitos</Text>
+        <Text>Buah</Text>
       </View>
       <View style={styles.Buttons}>
         <Button
