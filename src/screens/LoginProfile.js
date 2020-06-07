@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,42 +6,61 @@ import {
   Image,
   TextInput,
   ScrollView,
-} from 'react-native';
-import Button from 'react-native-button';
-import { useFonts } from '@use-expo/font';
-import { AppLoading } from 'expo';
-import DatePicker from 'react-native-datepicker';
+  Picker,
+} from "react-native";
+import Button from "react-native-button";
+import { useFonts } from "@use-expo/font";
+import { AppLoading } from "expo";
+import DatePicker from "react-native-datepicker";
+import ajax from "../services/Routes";
 
 const Login = (props) => {
   let [fontsLoaded] = useFonts({
-    'Montserrat-Medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-Bold': require('../../assets/fonts/Montserrat-Bold.ttf'),
+    "Montserrat-Medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
   });
+  const { user } = props.route.params;
+  const [name, Name] = useState(user.givenName);
+  const [lastname, Lastname] = useState(user.familyName);
+  const [dni, Dni] = useState("");
+  const [birthdate, Birthdate] = useState("15-05-2018");
+  const [gender, Gender] = useState(1);
+  const [phone, Phone] = useState("");
 
-  const [name, Name] = useState('');
-  const [lastname, Lastname] = useState('');
-  const [dni, Dni] = useState('');
-  const [birthdate, Birthdate] = useState('15-05-2018');
-  const [gender, Gender] = useState('');
-  const [phone, Phone] = useState('');
+  const createUser = async () => {
+    const response = await ajax.addUser(
+      name,
+      user.email,
+      null,
+      lastname,
+      gender,
+      1,
+      dni,
+      phone,
+      birthdate
+    );
+    alert(response.message);
+    if (response.status && response.body)
+      props.navigation.navigate("Welcome", { user: response.body });
+  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
-      <ScrollView style={{ backgroundColor: '#F6F7FA' }}>
+      <ScrollView style={{ backgroundColor: "#F6F7FA" }}>
         <View style={styles.Login}>
           <Image
             style={{ width: 181, height: 123 }}
-            source={require('../../assets/LogoVertical.png')}
+            source={require("../../assets/LogoVertical.png")}
           />
           <Text
             style={{
               fontSize: 20,
               marginTop: 10,
               marginBottom: 30,
-              color: '#414968',
-              fontFamily: 'Montserrat-Bold',
+              color: "#414968",
+              fontFamily: "Montserrat-Bold",
             }}
           >
             Completar Perfil
@@ -99,12 +118,14 @@ const Login = (props) => {
           onDateChange={(birthdate) => Birthdate(birthdate)}
         />
 
-        <TextInput
+        <Picker
           style={styles.Input}
-          placeholder="Género"
-          onChangeText={(gender) => Gender(gender)}
-          value={gender}
-        />
+          selectedValue={gender}
+          onValueChange={(gender) => Gender(gender)}
+        >
+          <Picker.Item label="Masculino" value="1" />
+          <Picker.Item label="Femenino" value="2" />
+        </Picker>
 
         <TextInput
           style={styles.Input}
@@ -114,10 +135,7 @@ const Login = (props) => {
         />
 
         <View style={styles.Footer}>
-          <Button
-            style={styles.Button}
-            onPress={() => props.navigation.navigate('Welcome')}
-          >
+          <Button style={styles.Button} onPress={createUser}>
             Continuar
           </Button>
         </View>
@@ -129,34 +147,34 @@ const Login = (props) => {
 const styles = StyleSheet.create({
   Login: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 80,
   },
   Input: {
     //flex: 1,
     height: 50,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingLeft: 25,
     borderRadius: 15,
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     margin: 10,
     marginHorizontal: 25,
   },
   Button: {
-    backgroundColor: '#639BEF',
-    textAlignVertical: 'center',
-    color: 'white',
+    backgroundColor: "#639BEF",
+    textAlignVertical: "center",
+    color: "white",
     borderRadius: 15,
     height: 50,
     width: 360,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 16,
   },
   Footer: {
     //width: '100%',
     //flex: 0.3,
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: 20,
   },
 
@@ -166,14 +184,14 @@ const styles = StyleSheet.create({
   Header: {
     //width: '100%',
     //flex: 0.4,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
 
   InputRow: {
     //flex: 1,
     //flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: "center",
     width: 360,
   },
   /* Input: {

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import Presentation from './src/screens/Presentation';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Login from './src/screens/Login';
-import Welcome from './src/screens/Welcome';
-import LoginProfile from './src/screens/LoginProfile';
+import React, { useEffect } from "react";
+import Presentation from "./src/screens/Presentation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Login from "./src/screens/Login";
+import Welcome from "./src/screens/Welcome";
+import LoginProfile from "./src/screens/LoginProfile";
+import Main from "./src/screens/Main";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,13 @@ function App() {
         <Stack.Screen
           name="LoginProfile"
           component={LoginProfile}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Main"
+          component={Main}
           options={{
             headerShown: false,
           }}
