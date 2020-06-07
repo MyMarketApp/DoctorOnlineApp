@@ -114,7 +114,10 @@ const Login = (props) => {
           </View>
         </View>
         <View style={styles.Footer}>
-          <Button style={styles.Button} onPress={() => alert('buah')}>
+          <Button
+            style={styles.Button}
+            onPress={() => props.navigation.navigate('LoginProfile')}
+          >
             Continuar
           </Button>
           <Text
