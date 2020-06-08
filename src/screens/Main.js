@@ -3,6 +3,7 @@ import { Image } from "react-native";
 import MainSidebar from "../components/MainSidebar";
 import ContactUs from "./ContactUs";
 import Profile from "./Profile";
+import SpecialtyFlow from "./SpecialtyFlow/SpecialtyFlow";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStore } from "redux";
@@ -60,6 +61,19 @@ const Main = (props) => {
             component={Profile}
             options={{
               title: "Perfil",
+              drawerIcon: () => (
+                <Image
+                  source={require("../../assets/icons/Profile.png")}
+                  style={{ width: 20, height: 20 }}
+                />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="SpecialtyFlow"
+            component={SpecialtyFlow}
+            options={{
+              title: "Especialidades",
               drawerIcon: () => (
                 <Image
                   source={require("../../assets/icons/Profile.png")}

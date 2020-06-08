@@ -91,4 +91,14 @@ export default {
       console.log(e);
     }
   },
+
+  async Specialties() {
+    try {
+      let response = await fetch(URI + "/api/Specialty/all", getRequestOptions);
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };
