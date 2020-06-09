@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { Image } from "react-native";
 import MainSidebar from "../components/MainSidebar";
 import ContactUs from "./ContactUs";
-import Profile from "./Profile";
+
 import SpecialtyFlow from "./SpecialtyFlow/SpecialtyFlow";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import ProfilesFlow from "./ProfileFlow/ProfilesFlow";
 
 const Drawer = createDrawerNavigator();
 
@@ -15,6 +16,7 @@ const Main = (props) => {
   const { user } = props.route.params;
   const initialState = {
     user: user,
+    profiles: user.profiles,
   };
 
   const reducer = (state = initialState, action) => {
@@ -24,13 +26,23 @@ const Main = (props) => {
           ...state,
           user: action.user,
         };
+      case "UpdatePatient":
+        return {
+          ...state,
+          profiles: state.profiles.map((profile) => {
+            if (profile.id == action.patient.id) return action.patient;
+            return profile;
+          }),
+        };
     }
     return state;
   };
 
   const store = createStore(reducer);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // console.log(user);
+  }, []);
   return (
     <Provider store={store}>
       <NavigationContainer independent={true}>
@@ -57,10 +69,10 @@ const Main = (props) => {
             }}
           />
           <Drawer.Screen
-            name="Profile"
-            component={Profile}
+            name="ProfilesFlow"
+            component={ProfilesFlow}
             options={{
-              title: "Perfil",
+              title: "Perfiles",
               drawerIcon: () => (
                 <Image
                   source={require("../../assets/icons/Profile.png")}

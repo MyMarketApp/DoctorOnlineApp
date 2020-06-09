@@ -13,43 +13,42 @@ import Button from "react-native-button";
 import { useFonts } from "@use-expo/font";
 import { AppLoading } from "expo";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import ajax from "../services/Routes";
+import ajax from "../../services/Routes";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
 
-const PatientProfile = (props) => {
+const PatientProfileUpdate = (props) => {
   let [fontsLoaded] = useFonts({
-    "Montserrat-Medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
-    "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
+    "Montserrat-Medium": require("../../../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
   });
-  const { UserId } = props.route.params;
-  const [name, Name] = useState();
-  const [lastname, Lastname] = useState();
-  const [dni, Dni] = useState();
-  const [birthdate, Birthdate] = useState(new Date());
-  const [gender, Gender] = useState(1);
+  const { patient } = props.route.params;
+  const [name, Name] = useState(patient.name);
+  const [lastname, Lastname] = useState(patient.lastName);
+  const [dni, Dni] = useState(patient.dni);
+  const [birthdate, Birthdate] = useState(new Date(patient.birthdate));
+  const [gender, Gender] = useState(patient.idGender);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // console.log("Profile Patient 1");
+    console.log("Profile Patient 1");
   }, []);
 
-  const createUser = async () => {
-    if (!dni || !name || !lastname || !birthdate) alert("completar datos");
+  const updateUser = async () => {
+    if (!dni || !name || !lastname) alert("completar datos");
     else {
-      let response = await ajax.addPatient(
+      let response = await ajax.updatePatient(
+        patient.id,
         name,
         lastname,
         gender,
-        UserId,
+        patient.idUser,
         dni,
         birthdate,
-        null
+        patient.imageUrl
       );
       alert(response.message);
-      if (response.status)
-        props.navigation.navigate("Welcome", {
-          UserId,
-          name: response.body.name,
-        });
+      if (response.status) props.updatePatient(response.body);
     }
   };
 
@@ -70,7 +69,7 @@ const PatientProfile = (props) => {
         <View style={styles.Login}>
           <Image
             style={{ width: 181, height: 123 }}
-            source={require("../../assets/LogoVertical.png")}
+            source={require("../../../assets/LogoVertical.png")}
           />
           <Text
             style={{
@@ -81,7 +80,7 @@ const PatientProfile = (props) => {
               fontFamily: "Montserrat-Bold",
             }}
           >
-            Completar Perfil
+            Actualizar Perfil
           </Text>
         </View>
 
@@ -116,7 +115,7 @@ const PatientProfile = (props) => {
         >
           <TouchableOpacity onPress={() => setShow(true)}>
             <Image
-              source={require("../../assets/icons/ContactUs.png")}
+              source={require("../../../assets/icons/ContactUs.png")}
               style={{
                 width: 25,
                 height: 25,
@@ -156,8 +155,8 @@ const PatientProfile = (props) => {
         </Picker>
 
         <View style={styles.Footer}>
-          <Button style={styles.Button} onPress={createUser}>
-            Continuar
+          <Button style={styles.Button} onPress={updateUser}>
+            Actualizar
           </Button>
         </View>
       </ScrollView>
@@ -205,4 +204,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PatientProfile;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PatientProfileUpdate);

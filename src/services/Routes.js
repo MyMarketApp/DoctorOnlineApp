@@ -85,6 +85,38 @@ export default {
     }
   },
 
+  async updatePatient(
+    id,
+    name,
+    lastName,
+    idGender,
+    idUser,
+    dni,
+    birthdate,
+    imageUrl
+  ) {
+    try {
+      postRequestOptions.body = JSON.stringify({
+        id,
+        name,
+        lastName,
+        idGender,
+        idUser,
+        dni,
+        birthdate,
+        imageUrl,
+      });
+      let response = await fetch(
+        URI + "/api/Patient/update",
+        postRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   async loginUser(email, password) {
     try {
       postRequestOptions.body = JSON.stringify({ email, password });
