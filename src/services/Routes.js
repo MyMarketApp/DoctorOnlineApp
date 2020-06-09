@@ -10,6 +10,68 @@ const getRequestOptions = {
 };
 
 export default {
+  async addUser(email, password, phone, score, idType) {
+    try {
+      postRequestOptions.body = JSON.stringify({
+        email,
+        password,
+        phone,
+        score,
+        idType,
+      });
+      let response = await fetch(URI + "/api/User/add", postRequestOptions);
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async dataFromReniec(dni) {
+    try {
+      let response = await fetch(
+        "https://api.reniec.cloud/dni/" + dni,
+        getRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async addPatient(name, lastName, idGender, idUser, dni, birthdate, imageUrl) {
+    try {
+      postRequestOptions.body = JSON.stringify({
+        name,
+        lastName,
+        idGender,
+        idUser,
+        dni,
+        birthdate,
+        imageUrl,
+      });
+      let response = await fetch(URI + "/api/Patient/add", postRequestOptions);
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async findUser(id) {
+    try {
+      let response = await fetch(
+        URI + "/api/User/find/" + id,
+        getRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   async loginUser(email, password) {
     try {
       postRequestOptions.body = JSON.stringify({ email, password });
@@ -27,37 +89,6 @@ export default {
         URI + "/api/User/" + email + "/verify",
         getRequestOptions
       );
-      let responseJsonData = await response.json();
-      return responseJsonData;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-
-  async addUser(
-    name,
-    email,
-    password,
-    lastName,
-    idGender,
-    idType,
-    dni,
-    phone,
-    birthdate
-  ) {
-    try {
-      postRequestOptions.body = JSON.stringify({
-        name,
-        email,
-        password,
-        lastName,
-        idGender,
-        idType,
-        dni,
-        phone,
-        birthdate,
-      });
-      let response = await fetch(URI + "/api/User/add", postRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {

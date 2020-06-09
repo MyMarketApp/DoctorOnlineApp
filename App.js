@@ -6,6 +6,8 @@ import Login from "./src/screens/Login";
 import Welcome from "./src/screens/Welcome";
 import LoginProfile from "./src/screens/LoginProfile";
 import Main from "./src/screens/Main";
+import UserRegistration from "./src/screens/UserRegistration";
+import PatientProfile from "./src/screens/PatientProfile";
 
 const Stack = createStackNavigator();
 
@@ -44,6 +46,20 @@ function App() {
         <Stack.Screen
           name="Main"
           component={Main}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="UserRegistration"
+          component={UserRegistration}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="PatientProfile"
+          component={PatientProfile}
           options={{
             headerShown: false,
           }}

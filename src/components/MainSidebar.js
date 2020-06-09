@@ -30,9 +30,9 @@ const MainSidebar = (props) => {
                 fontSize: 20,
               }}
             >
-              {user.name.length < 14
-                ? `${user.name}`
-                : `${user.name.substring(0, 14)}...`}
+              {user.email.length < 14
+                ? `${user.email}`
+                : `${user.email.substring(0, 14)}...`}
             </Text>
           </View>
         </Body>

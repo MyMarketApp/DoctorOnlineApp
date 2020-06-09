@@ -15,9 +15,8 @@ const Login = (props) => {
     "Montserrat-Medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
   });
-
+  const { UserType } = props.route.params;
   const [password, Password] = useState("");
-  const [password2, Password2] = useState("");
   const [email, Email] = useState("");
 
   const signInWithGoogle = async () => {
@@ -69,7 +68,7 @@ const Login = (props) => {
               fontFamily: "Montserrat-Bold",
             }}
           >
-            Crear cuenta
+            Login
           </Text>
         </View>
         <View style={styles.Input}>
@@ -91,18 +90,21 @@ const Login = (props) => {
             />
           </View>
           <View style={styles.InputRow}>
-            <TextInput
-              secureTextEntry={true}
-              style={styles.button}
-              placeholder="Repetir Contraseña"
-              onChangeText={(password2) => Password2(password2)}
-              value={password2}
-            />
+            <Button style={styles.Button} onPress={() => alert("buah")}>
+              Continuar
+            </Button>
           </View>
         </View>
         <View style={styles.Footer}>
-          <Button style={styles.Button} onPress={() => alert("buah")}>
-            Continuar
+          <Button
+            style={styles.Button}
+            onPress={() =>
+              props.navigation.navigate("UserRegistration", {
+                UserType,
+              })
+            }
+          >
+            Registrarse
           </Button>
           <Text
             style={{

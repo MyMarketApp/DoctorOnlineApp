@@ -1,13 +1,13 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import Button from 'react-native-button';
-import { useFonts } from '@use-expo/font';
-import { AppLoading } from 'expo';
+import React from "react";
+import { StyleSheet, View, Image, Text } from "react-native";
+import Button from "react-native-button";
+import { useFonts } from "@use-expo/font";
+import { AppLoading } from "expo";
 
 const Presentation = (props) => {
   let [fontsLoaded] = useFonts({
-    'Montserrat-Medium': require('../../assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-Bold': require('../../assets/fonts/Montserrat-Bold.ttf'),
+    "Montserrat-Medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -17,7 +17,7 @@ const Presentation = (props) => {
       <View style={styles.Presentation}>
         <Image
           style={{ width: 181, height: 123 }}
-          source={require('../../assets/LogoVertical.png')}
+          source={require("../../assets/LogoVertical.png")}
         />
         <Text style={styles.Title}>
           Accede a un servicio de calidad 24/7, desde la comodidad de tu casa y
@@ -26,11 +26,11 @@ const Presentation = (props) => {
         <View style={styles.Buttons}>
           <Button
             style={styles.Button}
-            onPress={() => props.navigation.navigate('Login')}
+            onPress={() => props.navigation.navigate("Login", { UserType: 1 })}
           >
             Soy paciente
           </Button>
-          <Button style={styles.Button} onPress={() => console.log('buah')}>
+          <Button style={styles.Button} onPress={() => console.log("buah")}>
             Soy médico
           </Button>
         </View>
@@ -41,33 +41,33 @@ const Presentation = (props) => {
 
 const styles = StyleSheet.create({
   Presentation: {
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
-    backgroundColor: '#F6F7FA',
-    alignItems: 'center',
+    backgroundColor: "#F6F7FA",
+    alignItems: "center",
   },
   Title: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
     marginRight: 60,
     marginLeft: 60,
     fontSize: 14,
-    color: '#414968',
-    fontFamily: 'Montserrat-Medium',
+    color: "#414968",
+    fontFamily: "Montserrat-Medium",
   },
   Buttons: {
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     flex: 0.5,
     // backgroundColor: "blue",
-    alignItems: 'center',
+    alignItems: "center",
   },
   Button: {
-    backgroundColor: '#639BEF',
-    justifyContent: 'space-between',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    color: 'white',
-    fontFamily: 'Montserrat-Bold',
+    backgroundColor: "#639BEF",
+    justifyContent: "space-between",
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: "white",
+    fontFamily: "Montserrat-Bold",
     fontSize: 20,
     borderRadius: 15,
     height: 66,
