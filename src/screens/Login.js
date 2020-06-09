@@ -30,10 +30,20 @@ const Login = (props) => {
       if (result.type === "success") {
         const verifyUser = await ajax.verifyUser(result.user.email);
         if (verifyUser.status) {
-          // console.log(verifyUser);
           props.navigation.navigate("Main", { user: verifyUser.body });
         } else {
-          props.navigation.navigate("LoginProfile", { user: result.user });
+          let response = await ajax.addUser(
+            result.user.email,
+            null,
+            null,
+            5.0,
+            UserType
+          );
+          alert(response.message);
+          if (response.status)
+            props.navigation.navigate("PatientProfile", {
+              UserId: response.body.id,
+            });
         }
       } else {
         alert("GG");

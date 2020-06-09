@@ -72,10 +72,12 @@ export default {
     }
   },
 
-  async loginUser(email, password) {
+  async verifyUser(email) {
     try {
-      postRequestOptions.body = JSON.stringify({ email, password });
-      let response = await fetch(URI + "/api/User/login", postRequestOptions);
+      let response = await fetch(
+        URI + "/api/User/" + email + "/verify",
+        getRequestOptions
+      );
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
@@ -83,12 +85,10 @@ export default {
     }
   },
 
-  async verifyUser(email) {
+  async loginUser(email, password) {
     try {
-      let response = await fetch(
-        URI + "/api/User/" + email + "/verify",
-        getRequestOptions
-      );
+      postRequestOptions.body = JSON.stringify({ email, password });
+      let response = await fetch(URI + "/api/User/login", postRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
