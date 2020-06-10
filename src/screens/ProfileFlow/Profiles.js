@@ -17,6 +17,7 @@ import { Header, Body, Right, Icon, Left } from "native-base";
 
 const Profiles = (props) => {
   const { profiles } = props;
+  const { user } = props;
   useEffect(() => {
     console.log("Perfiles");
   }, []);
@@ -34,7 +35,14 @@ const Profiles = (props) => {
           <Text style={{ fontSize: 20, alignSelf: "center" }}>PERFILES</Text>
         </Body>
         <Right>
-          <Icon name="add-circle" onPress={() => alert("buah")}></Icon>
+          <Icon
+            name="add-circle"
+            onPress={() =>
+              props.navigation.navigate("PatientProfileNew", {
+                UserId: user.id,
+              })
+            }
+          ></Icon>
         </Right>
       </Header>
       <FlatList

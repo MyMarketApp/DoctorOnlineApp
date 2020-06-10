@@ -34,6 +34,11 @@ const Main = (props) => {
             return profile;
           }),
         };
+      case "AddPatient":
+        return {
+          ...state,
+          profiles: [...state.profiles, action.patient],
+        };
     }
     return state;
   };

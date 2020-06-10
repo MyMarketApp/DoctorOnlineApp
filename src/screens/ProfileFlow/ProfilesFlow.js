@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Profiles from "./Profiles";
 import PatientProfileUpdate from "./PatientProfileUpdate";
+import PatientProfileNew from "./PatientProfileNew";
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
@@ -18,6 +19,13 @@ const ProfileFlow = (props) => {
       <Stack.Screen
         name="PatientProfileUpdate"
         component={PatientProfileUpdate}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PatientProfileNew"
+        component={PatientProfileNew}
         options={{
           headerShown: false,
         }}
