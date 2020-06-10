@@ -1,5 +1,5 @@
 // const URI = "http://localhost:8000";
-const URI = "https://doctoronlineapp.azurewebsites.net";
+const URI = "https://genkisalud.azurewebsites.net";
 const postRequestOptions = {
   method: "POST",
   headers: { "Content-Type": "application/json" },
