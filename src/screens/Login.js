@@ -26,7 +26,6 @@ const Login = (props) => {
         androidClientId: ANDROID_CLIENT_ID,
         scopes: ["profile", "email"],
       });
-
       if (result.type === "success") {
         const verifyUser = await ajax.verifyUser(result.user.email);
         if (verifyUser.status) {
@@ -43,6 +42,7 @@ const Login = (props) => {
           if (response.status)
             props.navigation.navigate("PatientProfile", {
               UserId: response.body.id,
+              photoUrl: result.user.photoUrl,
             });
         }
       } else {

@@ -21,12 +21,14 @@ const PatientProfile = (props) => {
     "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
   });
   const { UserId } = props.route.params;
+  const { photoUrl } = props.route.params;
   const [name, Name] = useState();
   const [lastname, Lastname] = useState();
   const [dni, Dni] = useState();
   const [birthdate, Birthdate] = useState(new Date());
   const [gender, Gender] = useState(1);
   const [show, setShow] = useState(false);
+  const [imageUrl, ImageUrl] = useState(photoUrl);
 
   useEffect(() => {
     // console.log("Profile Patient 1");
@@ -42,7 +44,7 @@ const PatientProfile = (props) => {
         UserId,
         dni,
         birthdate,
-        null
+        imageUrl
       );
       alert(response.message);
       if (response.status)
