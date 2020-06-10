@@ -13,15 +13,16 @@ import Button from "react-native-button";
 import ajax from "../../services/Routes";
 import { Header, Body, Right, Icon, Left } from "native-base";
 
-const Specialties = (props) => {
-  const [specialties, Specialties] = useState([]);
+const Specialty = (props) => {
+  const { specialty } = props.route.params;
+  const [doctors, Doctors] = useState([]);
   useEffect(() => {
-    console.log("Especialidades");
-    async function retrieveSpecialties() {
-      const response = await ajax.Specialties();
-      Specialties(response.body);
+    console.log("Especialidad");
+    async function retrieveSpecialty() {
+      //   const response = await ajax.Specialties();
+      //   Specialties(response.body);
     }
-    retrieveSpecialties();
+    retrieveSpecialty();
   }, []);
   return (
     <View style={{ flex: 1 }}>
@@ -34,12 +35,12 @@ const Specialties = (props) => {
         </Left>
         <Body>
           <Text style={{ fontSize: 20, alignSelf: "center" }}>
-            Especialidades
+            {specialty.name}
           </Text>
         </Body>
-        <Right>{/* <Icon name="add-circle"></Icon> */}</Right>
+        <Right></Right>
       </Header>
-      <FlatList
+      {/* <FlatList
         data={specialties}
         horizontal={false}
         numColumns="2"
@@ -48,11 +49,7 @@ const Specialties = (props) => {
             style={{ width: "50%", alignItems: "center", marginBottom: 20 }}
           >
             <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                onPress={() =>
-                  props.navigation.navigate("Specialty", { specialty: item })
-                }
-              >
+              <TouchableOpacity onPress={() => console.log("buah")}>
                 <Image style={styles.Image} source={{ uri: item.imageUrl }} />
               </TouchableOpacity>
               <Text style={{ fontSize: 20, marginTop: 15 }}>{item.name}</Text>
@@ -60,7 +57,7 @@ const Specialties = (props) => {
           </View>
         )}
         keyExtractor={(item) => item.id}
-      />
+      /> */}
     </View>
   );
 };
@@ -74,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Specialties;
+export default Specialty;
