@@ -19,8 +19,8 @@ const Specialty = (props) => {
   useEffect(() => {
     console.log("Especialidad");
     async function retrieveSpecialty() {
-      //   const response = await ajax.Specialties();
-      //   Specialties(response.body);
+      const response = await ajax.doctorsSpecialty(specialty.id);
+      Doctors(response.body);
     }
     retrieveSpecialty();
   }, []);
@@ -40,8 +40,8 @@ const Specialty = (props) => {
         </Body>
         <Right></Right>
       </Header>
-      {/* <FlatList
-        data={specialties}
+      <FlatList
+        data={doctors}
         horizontal={false}
         numColumns="2"
         renderItem={({ item }) => (
@@ -57,7 +57,7 @@ const Specialty = (props) => {
           </View>
         )}
         keyExtractor={(item) => item.id}
-      /> */}
+      />
     </View>
   );
 };

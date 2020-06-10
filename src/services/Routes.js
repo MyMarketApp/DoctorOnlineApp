@@ -117,6 +117,29 @@ export default {
     }
   },
 
+  async Specialties() {
+    try {
+      let response = await fetch(URI + "/api/Specialty/all", getRequestOptions);
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async doctorsSpecialty(id) {
+    try {
+      let response = await fetch(
+        URI + "/api/Specialty/" + id + "/doctors",
+        getRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   async loginUser(email, password) {
     try {
       postRequestOptions.body = JSON.stringify({ email, password });
@@ -148,16 +171,6 @@ export default {
         adress,
       });
       let response = await fetch(URI + "/api/User/update", postRequestOptions);
-      let responseJsonData = await response.json();
-      return responseJsonData;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-
-  async Specialties() {
-    try {
-      let response = await fetch(URI + "/api/Specialty/all", getRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
