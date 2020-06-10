@@ -49,7 +49,11 @@ const Specialty = (props) => {
             style={{ width: "50%", alignItems: "center", marginBottom: 20 }}
           >
             <View style={{ alignItems: "center" }}>
-              <TouchableOpacity onPress={() => console.log("buah")}>
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate("Doctor", { doctor: item })
+                }
+              >
                 <Image style={styles.Image} source={{ uri: item.imageUrl }} />
               </TouchableOpacity>
               <Text style={{ fontSize: 20, marginTop: 15 }}>{item.name}</Text>

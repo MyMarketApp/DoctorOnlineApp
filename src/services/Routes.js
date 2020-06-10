@@ -140,6 +140,19 @@ export default {
     }
   },
 
+  async schedulesDoctor(id) {
+    try {
+      let response = await fetch(
+        URI + "/api/Doctor/" + id + "/schedules",
+        getRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   async loginUser(email, password) {
     try {
       postRequestOptions.body = JSON.stringify({ email, password });
