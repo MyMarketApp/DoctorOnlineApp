@@ -61,7 +61,10 @@ const NewAppointment = (props) => {
       <View
         style={{ flex: 0.2, alignItems: "center", justifyContent: "center" }}
       >
-        <Button style={styles.Button2} onPress={() => console.log("buah")}>
+        <Button
+          style={styles.Button2}
+          onPress={() => props.navigation.navigate("PurchaseProduct")}
+        >
           Continuar
         </Button>
       </View>
