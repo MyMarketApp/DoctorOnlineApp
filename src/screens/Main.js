@@ -9,8 +9,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import ProfilesFlow from "./ProfileFlow/ProfilesFlow";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const Main = (props) => {
   const { user } = props.route.params;
@@ -51,21 +54,16 @@ const Main = (props) => {
   return (
     <Provider store={store}>
       <NavigationContainer independent={true}>
-        <Drawer.Navigator
+        <Tab.Navigator
           initialRouteName="ContactUs"
-          drawerContent={(props) => <MainSidebar {...props} />}
-          drawerStyle={
-            {
-              // backgroundColor: "blue",
-            }
-          }
+          TabContent={(props) => <MainSidebar {...props} />}
         >
-          <Drawer.Screen
+          <Tab.Screen
             name="ContactUs"
             component={ContactUs}
             options={{
               title: "Contactanos",
-              drawerIcon: () => (
+              tabBarIcon: () => (
                 <Image
                   source={require("../../assets/icons/ContactUs.png")}
                   style={{ width: 20, height: 20 }}
@@ -73,12 +71,12 @@ const Main = (props) => {
               ),
             }}
           />
-          <Drawer.Screen
+          <Tab.Screen
             name="ProfilesFlow"
             component={ProfilesFlow}
             options={{
               title: "Perfiles",
-              drawerIcon: () => (
+              tabBarIcon: () => (
                 <Image
                   source={require("../../assets/icons/Profile.png")}
                   style={{ width: 20, height: 20 }}
@@ -86,12 +84,12 @@ const Main = (props) => {
               ),
             }}
           />
-          <Drawer.Screen
+          <Tab.Screen
             name="SpecialtyFlow"
             component={SpecialtyFlow}
             options={{
               title: "Especialidades",
-              drawerIcon: () => (
+              tabBarIcon: () => (
                 <Image
                   source={require("../../assets/icons/Profile.png")}
                   style={{ width: 20, height: 20 }}
@@ -99,7 +97,7 @@ const Main = (props) => {
               ),
             }}
           />
-        </Drawer.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </Provider>
   );
