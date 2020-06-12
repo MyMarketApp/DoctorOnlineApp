@@ -3,6 +3,7 @@ import Specialties from "./Specialties";
 import Specialty from "./Specialty";
 import Doctor from "./Doctor";
 import NewAppointment from "./NewAppointment";
+import NewAppointmentSuccess from "./NewAppointmentSuccess";
 import PurchaseProduct from "../Purchase/PurchaseProduct";
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
@@ -42,6 +43,13 @@ const SpecialtyFlow = (props) => {
       <Stack.Screen
         name="PurchaseProduct"
         component={PurchaseProduct}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="NewAppointmentSuccess"
+        component={NewAppointmentSuccess}
         options={{
           headerShown: false,
         }}

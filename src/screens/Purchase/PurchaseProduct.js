@@ -11,14 +11,12 @@ const PurchaseProduct = (props) => {
   const { user } = props;
   useEffect(() => {
     console.log("Purchase Product");
-    console.log(user);
   }, []);
   // TODO: this should come from some service/state store
 
   const onSuccessHandler = () => {
     /* TODO: do something */
-    alert("success");
-    props.navigation.navigate("Specialties");
+    props.navigation.navigate("NewAppointmentSuccess");
   };
   const onCanceledHandler = () => {
     /* TODO: do something */
