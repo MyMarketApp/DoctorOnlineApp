@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { Image } from "react-native";
-import MainSidebar from "../components/MainSidebar";
-import ContactUs from "./ContactUs";
+import React, { useEffect } from 'react';
+import { Image } from 'react-native';
+import MainSidebar from '../components/MainSidebar';
+import ContactUs from './ContactUs';
 
-import SpecialtyFlow from "./SpecialtyFlow/SpecialtyFlow";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import ProfilesFlow from "./ProfileFlow/ProfilesFlow";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import SpecialtyFlow from './SpecialtyFlow/SpecialtyFlow';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import ProfilesFlow from './ProfileFlow/ProfilesFlow';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,12 +24,12 @@ const Main = (props) => {
 
   const reducer = (state = initialState, action) => {
     switch (action.type) {
-      case "SetUser":
+      case 'SetUser':
         return {
           ...state,
           user: action.user,
         };
-      case "UpdatePatient":
+      case 'UpdatePatient':
         return {
           ...state,
           profiles: state.profiles.map((profile) => {
@@ -37,7 +37,7 @@ const Main = (props) => {
             return profile;
           }),
         };
-      case "AddPatient":
+      case 'AddPatient':
         return {
           ...state,
           profiles: [...state.profiles, action.patient],
@@ -62,11 +62,11 @@ const Main = (props) => {
             name="ContactUs"
             component={ContactUs}
             options={{
-              title: "Contactanos",
+              title: 'Inicio',
               tabBarIcon: () => (
                 <Image
-                  source={require("../../assets/icons/ContactUs.png")}
-                  style={{ width: 20, height: 20 }}
+                  source={require('../../assets/icons/home.png')}
+                  style={{ width: 24, height: 24 }}
                 />
               ),
             }}
@@ -75,11 +75,11 @@ const Main = (props) => {
             name="ProfilesFlow"
             component={ProfilesFlow}
             options={{
-              title: "Perfiles",
+              title: 'Perfiles',
               tabBarIcon: () => (
                 <Image
-                  source={require("../../assets/icons/Profile.png")}
-                  style={{ width: 20, height: 20 }}
+                  source={require('../../assets/icons/User.png')}
+                  style={{ width: 24, height: 24 }}
                 />
               ),
             }}
@@ -88,11 +88,11 @@ const Main = (props) => {
             name="SpecialtyFlow"
             component={SpecialtyFlow}
             options={{
-              title: "Especialidades",
+              title: 'Especialidades',
               tabBarIcon: () => (
                 <Image
-                  source={require("../../assets/icons/Profile.png")}
-                  style={{ width: 20, height: 20 }}
+                  source={require('../../assets/icons/Profile.png')}
+                  style={{ width: 24, height: 24 }}
                 />
               ),
             }}
