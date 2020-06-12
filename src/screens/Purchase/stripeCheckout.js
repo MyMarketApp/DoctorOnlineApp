@@ -1,15 +1,6 @@
 import { STRIPE } from "./stripeSettings";
 
-/**
- * Create the Stripe Checkout redirect html code for a given user
- * @param {String} userID
- * @returns {String}
- */
-export function stripeCheckoutRedirectHTML(userID) {
-  if (!userID) {
-    throw new Error("Invalid userID");
-  }
-
+export function stripeCheckoutRedirectHTML(user, doctor) {
   return `
   <html>
     <body>
@@ -25,23 +16,23 @@ export function stripeCheckoutRedirectHTML(userID) {
       <h1>Loading...</h1>
       <h1>Loading...</h1>
 
-      <div id="error-message"></div>
+      <div id="error-message"> <h1>Loading...</h1></div>
 
       <script>
         (function () {
           var stripe = Stripe('${STRIPE.PUBLIC_KEY}');
           window.onload = function () {
+            alert('${user.email}')
             stripe.redirectToCheckout({
               lineItems: [
-                {price: 'price_1GshNiCIA0h2xnEvtRdqgbIG', quantity: 1},
+                {price: '${doctor.idStripePrice}', quantity: 1},
               ],
               mode: 'payment',
               // https://stripe.com/docs/payments/checkout/fulfillment
+              customerEmail: '${user.email}',
+              clientReferenceId: '${user.cus_HSCj3TTkhpspoD}',
               successUrl: '${STRIPE.SUCCESS_URL}',
               cancelUrl: '${STRIPE.CANCELED_URL}',
-
-              // clientReferenceId: '${userID}',
-              // sessionId: '${STRIPE.CHECKOUT_SESSION_ID}'
             })
               .then(function (result) {
                 alert(result)

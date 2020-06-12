@@ -63,7 +63,9 @@ const NewAppointment = (props) => {
       >
         <Button
           style={styles.Button2}
-          onPress={() => props.navigation.navigate("PurchaseProduct")}
+          onPress={() =>
+            props.navigation.navigate("PurchaseProduct", { doctor })
+          }
         >
           Continuar
         </Button>

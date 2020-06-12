@@ -3,11 +3,17 @@ import { WebView } from "react-native-webview";
 import { STRIPE } from "./stripeSettings";
 import { stripeCheckoutRedirectHTML } from "./stripeCheckout";
 import { StyleSheet, View, TextInput, Text } from "react-native";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
 
 const PurchaseProduct = (props) => {
-  useEffect(() => {}, []);
+  const { doctor } = props.route.params;
+  const { user } = props;
+  useEffect(() => {
+    console.log("Purchase Product");
+    console.log(user);
+  }, []);
   // TODO: this should come from some service/state store
-  const user = { id: "someID" };
 
   const onSuccessHandler = () => {
     /* TODO: do something */
@@ -21,12 +27,9 @@ const PurchaseProduct = (props) => {
 
   // Called everytime the URL stats to load in the webview
   onLoadStart = (syntheticEvent) => {
-    console.log("PurchaseProduct");
     const { nativeEvent } = syntheticEvent;
-    console.log(nativeEvent);
     if (nativeEvent.url === STRIPE.SUCCESS_URL) {
       onSuccessHandler();
-      // return;
     }
     if (nativeEvent.url === STRIPE.CANCELED_URL) {
       onCanceledHandler();
@@ -39,15 +42,14 @@ const PurchaseProduct = (props) => {
   }
 
   return (
-    // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    //   <Text>buah</Text>
-    // </View>
     <WebView
       originWhitelist={["*"]}
-      source={{ html: stripeCheckoutRedirectHTML("cus_HPkAM514m9tnHI") }}
+      source={{
+        html: stripeCheckoutRedirectHTML(user, doctor),
+      }}
       onLoadStart={onLoadStart}
     />
   );
 };
 
-export default PurchaseProduct;
+export default connect(mapStateToProps, mapDispatchToProps)(PurchaseProduct);
