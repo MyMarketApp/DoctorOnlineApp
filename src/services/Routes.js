@@ -153,10 +153,33 @@ export default {
     }
   },
 
-  async loginUser(email, password) {
+  async addAppointment(
+    diagnostic,
+    prescription,
+    comment,
+    score,
+    date,
+    idDoctor,
+    idStatus,
+    idPatient,
+    idSchedule
+  ) {
     try {
-      postRequestOptions.body = JSON.stringify({ email, password });
-      let response = await fetch(URI + "/api/User/login", postRequestOptions);
+      postRequestOptions.body = JSON.stringify({
+        diagnostic,
+        prescription,
+        comment,
+        score,
+        date,
+        idDoctor,
+        idStatus,
+        idPatient,
+        idSchedule,
+      });
+      let response = await fetch(
+        URI + "/api/Appointment/add",
+        postRequestOptions
+      );
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
@@ -164,26 +187,44 @@ export default {
     }
   },
 
-  async updateUser(
-    email,
-    password,
-    name,
-    lastName,
-    phone,
-    coordinates,
-    adress
+  async updateAppointment(
+    diagnostic,
+    prescription,
+    comment,
+    score,
+    date,
+    idDoctor,
+    idStatus,
+    idPatient,
+    idSchedule
   ) {
     try {
       postRequestOptions.body = JSON.stringify({
-        email,
-        password,
-        name,
-        lastName,
-        phone,
-        coordinates,
-        adress,
+        diagnostic,
+        prescription,
+        comment,
+        score,
+        date,
+        idDoctor,
+        idStatus,
+        idPatient,
+        idSchedule,
       });
-      let response = await fetch(URI + "/api/User/update", postRequestOptions);
+      let response = await fetch(
+        URI + "/api/Appointment/update",
+        postRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async loginUser(email, password) {
+    try {
+      postRequestOptions.body = JSON.stringify({ email, password });
+      let response = await fetch(URI + "/api/User/login", postRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {

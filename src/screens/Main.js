@@ -4,6 +4,7 @@ import MainSidebar from "../components/MainSidebar";
 import ContactUs from "./ContactUs";
 
 import SpecialtyFlow from "./SpecialtyFlow/SpecialtyFlow";
+import MyAppointmentsFlow from "./MyAppointmentsFlow/MyAppointmentsFlow";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStore } from "redux";
@@ -89,6 +90,19 @@ const Main = (props) => {
             component={ProfilesFlow}
             options={{
               title: "Perfiles",
+              tabBarIcon: () => (
+                <Image
+                  source={require("../../assets/icons/User.png")}
+                  style={{ width: 24, height: 24 }}
+                />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="MyAppointmentsFlow"
+            component={MyAppointmentsFlow}
+            options={{
+              title: "Mis citas",
               tabBarIcon: () => (
                 <Image
                   source={require("../../assets/icons/User.png")}
