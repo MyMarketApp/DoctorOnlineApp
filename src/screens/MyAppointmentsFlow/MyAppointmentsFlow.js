@@ -17,8 +17,7 @@ const MyAppointmentsFlow = (props) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        labelStyle: { fontSize: 12 },
-        style: { paddingTop: 15 },
+        labelStyle: { fontSize: 14 },
       }}
     >
       <Tab.Screen
