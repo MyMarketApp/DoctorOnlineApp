@@ -22,7 +22,6 @@ export function stripeCheckoutRedirectHTML(user, doctor) {
         (function () {
           var stripe = Stripe('${STRIPE.PUBLIC_KEY}');
           window.onload = function () {
-            alert('${user.email}')
             stripe.redirectToCheckout({
               lineItems: [
                 {price: '${doctor.idStripePrice}', quantity: 1},

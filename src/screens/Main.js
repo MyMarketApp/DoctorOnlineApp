@@ -21,6 +21,7 @@ const Main = (props) => {
   const initialState = {
     user: user,
     profiles: user.profiles,
+    appointments: null,
   };
 
   const reducer = (state = initialState, action) => {
@@ -42,6 +43,11 @@ const Main = (props) => {
         return {
           ...state,
           profiles: [...state.profiles, action.patient],
+        };
+      case "SetAppointments":
+        return {
+          ...state,
+          appointments: action.appointments,
         };
     }
     return state;

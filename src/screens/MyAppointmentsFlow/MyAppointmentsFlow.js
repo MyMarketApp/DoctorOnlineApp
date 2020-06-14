@@ -3,12 +3,17 @@ import History from "./History";
 import Appointments from "./Appointments";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
+import ajax from "../../services/Routes";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 const MyAppointmentsFlow = (props) => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("MyAppointmentsFlow");
+  }, []);
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -30,4 +35,4 @@ const MyAppointmentsFlow = (props) => {
   );
 };
 
-export default MyAppointmentsFlow;
+export default connect(mapStateToProps, mapDispatchToProps)(MyAppointmentsFlow);

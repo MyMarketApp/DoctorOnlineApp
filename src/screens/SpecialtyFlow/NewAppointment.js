@@ -26,6 +26,24 @@ const NewAppointment = (props) => {
     console.log("New Appointment");
   }, []);
 
+  const createAppointment = async () => {
+    const response = await ajax.addAppointment(
+      null,
+      null,
+      null,
+      null,
+      date,
+      doctor.id,
+      1,
+      patient.id,
+      schedule.id
+    );
+    props.navigation.navigate("PurchaseProduct", {
+      doctor,
+      appointment: response.body,
+    });
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.TextRow}>
@@ -61,12 +79,7 @@ const NewAppointment = (props) => {
       <View
         style={{ flex: 0.2, alignItems: "center", justifyContent: "center" }}
       >
-        <Button
-          style={styles.Button2}
-          onPress={() =>
-            props.navigation.navigate("PurchaseProduct", { doctor })
-          }
-        >
+        <Button style={styles.Button2} onPress={createAppointment}>
           Continuar
         </Button>
       </View>

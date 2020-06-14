@@ -5,18 +5,32 @@ import { stripeCheckoutRedirectHTML } from "./stripeCheckout";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
+import ajax from "../../services/Routes";
 
 const PurchaseProduct = (props) => {
   const { doctor } = props.route.params;
+  const { appointment } = props.route.params;
   const { user } = props;
   useEffect(() => {
     console.log("Purchase Product");
   }, []);
   // TODO: this should come from some service/state store
 
-  const onSuccessHandler = () => {
+  const onSuccessHandler = async () => {
     /* TODO: do something */
-    props.navigation.navigate("NewAppointmentSuccess");
+    const response = await ajax.updateAppointment(
+      appointment.id,
+      appointment.diagnostic,
+      appointment.prescription,
+      appointment.comment,
+      appointment.score,
+      appointment.date,
+      appointment.idDoctor,
+      2,
+      appointment.idPatient,
+      appointment.idSchedule
+    );
+    props.navigation.navigate("MyAppointmentsFlow");
   };
   const onCanceledHandler = () => {
     /* TODO: do something */

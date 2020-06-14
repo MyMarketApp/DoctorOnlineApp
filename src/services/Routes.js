@@ -188,6 +188,7 @@ export default {
   },
 
   async updateAppointment(
+    id,
     diagnostic,
     prescription,
     comment,
@@ -200,6 +201,7 @@ export default {
   ) {
     try {
       postRequestOptions.body = JSON.stringify({
+        id,
         diagnostic,
         prescription,
         comment,
@@ -213,6 +215,19 @@ export default {
       let response = await fetch(
         URI + "/api/Appointment/update",
         postRequestOptions
+      );
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async Appointments(dni) {
+    try {
+      let response = await fetch(
+        URI + "/api/Appointment/all",
+        getRequestOptions
       );
       let responseJsonData = await response.json();
       return responseJsonData;
