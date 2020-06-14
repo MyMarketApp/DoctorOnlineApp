@@ -35,37 +35,51 @@ const History = (props) => {
     retrieveAppointments();
   }, []);
   return (
-    <View style={styles.ContactUs}>
+    <View style={{ flex: 1 }}>
       <SafeAreaView>
         <Carousel
           layout={"default"}
-          //ref={(ref) => (this.carousel = ref)}
           data={appointments}
-          sliderWidth={500}
-          itemWidth={120}
+          sliderWidth={400}
+          itemWidth={300}
           renderItem={({ item }) => (
             <View
               style={{
+                flexDirection: "row",
                 backgroundColor: "white",
                 borderRadius: 15,
-                height: 160,
+                height: 80,
                 padding: 10,
-                marginLeft: 5,
-                marginRight: 5,
-                alignItems: "center",
-                justifyContent: "center",
+                marginTop: 20,
+                // marginLeft: 5,
+                // marginRight: 5,
+                // alignItems: "center",
+                // justifyContent: "center",
               }}
             >
-              <TouchableOpacity
-                onPress={() =>
-                  props.navigation.navigate("Specialty", {
-                    specialty: item,
-                  })
-                }
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                <Image style={styles.Image} source={{ uri: item.imageUrl }} />
-              </TouchableOpacity>
-              <Text
+                <Text>
+                  {item.date} - {item.schedule.start.substring(0, 5)}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text>{item.doctor.specialty.name}</Text>
+                <Text>{item.doctor.name}</Text>
+              </View>
+
+              {/* <Text
                 style={{
                   fontSize: 16,
                   marginTop: 15,
@@ -74,8 +88,8 @@ const History = (props) => {
                   color: "#2F2929",
                 }}
               >
-                {item.name}
-              </Text>
+                {item.doctor.name}
+              </Text> */}
             </View>
           )}
           onSnapToItem={(index) => setIndex(index)}
