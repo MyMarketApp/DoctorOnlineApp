@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   SafeAreaView,
+  FlatList,
 } from "react-native";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
@@ -36,65 +37,46 @@ const Appointments = (props) => {
   }, []);
   return (
     <View style={{ flex: 1 }}>
-      <SafeAreaView>
-        <Carousel
-          layout={"default"}
-          data={appointments}
-          sliderWidth={400}
-          itemWidth={300}
-          renderItem={({ item }) => (
+      <FlatList
+        data={appointments}
+        horizontal={false}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              flexDirection: "row",
+              backgroundColor: "white",
+              borderRadius: 15,
+              height: 80,
+              padding: 10,
+              marginTop: 20,
+            }}
+          >
             <View
               style={{
-                flexDirection: "row",
-                backgroundColor: "white",
-                borderRadius: 15,
-                height: 80,
-                padding: 10,
-                marginTop: 20,
-                // marginLeft: 5,
-                // marginRight: 5,
-                // alignItems: "center",
-                // justifyContent: "center",
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text>
-                  {item.date} - {item.schedule.start.substring(0, 5)}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text>{item.doctor.specialty.name}</Text>
-                <Text>{item.doctor.name}</Text>
-              </View>
-
-              {/* <Text
-                style={{
-                  fontSize: 16,
-                  marginTop: 15,
-                  alignItems: "center",
-                  fontFamily: "Montserrat-Bold",
-                  color: "#2F2929",
-                }}
-              >
-                {item.doctor.name}
-              </Text> */}
+              <Text>
+                {item.date} - {item.schedule.start.substring(0, 5)}
+              </Text>
+              <Text>{item.status.name}</Text>
             </View>
-          )}
-          onSnapToItem={(index) => setIndex(index)}
-        />
-      </SafeAreaView>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text>{item.doctor.specialty.name}</Text>
+              <Text>Dr. {item.doctor.name}</Text>
+            </View>
+          </View>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
     </View>
   );
 };

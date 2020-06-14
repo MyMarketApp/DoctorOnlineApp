@@ -13,6 +13,7 @@ const PurchaseProduct = (props) => {
   const { user } = props;
   useEffect(() => {
     console.log("Purchase Product");
+    // console.log(props);
   }, []);
   // TODO: this should come from some service/state store
 
@@ -30,6 +31,7 @@ const PurchaseProduct = (props) => {
       appointment.idPatient,
       appointment.idSchedule
     );
+    // props.addAppointment(response.body);
     props.navigation.navigate("MyAppointmentsFlow");
   };
   const onCanceledHandler = () => {

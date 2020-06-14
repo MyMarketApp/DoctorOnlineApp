@@ -13,6 +13,8 @@ function mapDispatchToProps(dispatch) {
     addPatient: (patient) => dispatch({ type: "AddPatient", patient }),
     setAppointments: (appointments) =>
       dispatch({ type: "SetAppointments", appointments }),
+    addAppointment: (appointment) =>
+      dispatch({ type: "AddAppointment", appointment }),
   };
 }
 
