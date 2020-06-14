@@ -38,6 +38,7 @@ const NewAppointment = (props) => {
       patient.id,
       schedule.id
     );
+    props.addAppointment(response.body)
     props.navigation.navigate("PurchaseProduct", {
       doctor,
       appointment: response.body,

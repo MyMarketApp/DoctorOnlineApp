@@ -31,8 +31,8 @@ const PurchaseProduct = (props) => {
       appointment.idPatient,
       appointment.idSchedule
     );
-    // props.addAppointment(response.body);
-    props.navigation.navigate("MyAppointmentsFlow");
+  console.log(response.body);
+    props.navigation.navigate("NewAppointmentSuccess");
   };
   const onCanceledHandler = () => {
     /* TODO: do something */
