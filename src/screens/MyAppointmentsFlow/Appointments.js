@@ -41,39 +41,47 @@ const Appointments = (props) => {
         data={appointments}
         horizontal={false}
         renderItem={({ item }) => (
-          <View
-            style={{
-              flexDirection: "row",
-              backgroundColor: "white",
-              borderRadius: 15,
-              height: 80,
-              padding: 10,
-              marginTop: 20,
-            }}
+          <TouchableOpacity
+            onPress={() =>
+              props.navigation.navigate("AppointmentDetail", {
+                appointment: item,
+              })
+            }
           >
             <View
               style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
+                flexDirection: "row",
+                backgroundColor: "white",
+                borderRadius: 15,
+                height: 80,
+                padding: 10,
+                marginTop: 20,
               }}
             >
-              <Text>
-                {item.date} - {item.schedule.start.substring(0, 5)}
-              </Text>
-              <Text>{item.status.name}</Text>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text>
+                  {item.date} - {item.schedule.start.substring(0, 5)}
+                </Text>
+                <Text>{item.status.name}</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text>{item.doctor.specialty.name}</Text>
+                <Text>Dr. {item.doctor.name}</Text>
+              </View>
             </View>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text>{item.doctor.specialty.name}</Text>
-              <Text>Dr. {item.doctor.name}</Text>
-            </View>
-          </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id.toString()}
       />
