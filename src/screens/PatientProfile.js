@@ -59,8 +59,9 @@ const PatientProfile = (props) => {
     Dni(dni);
     if (dni.length == 8) {
       let response = await ajax.dataFromReniec(dni);
-      Name(response.nombres);
-      Lastname(response.apellido_paterno + " " + response.apellido_materno);
+      if (response.nomres != "") Name(response.nombres);
+      if (response.apellido_paterno != "")
+        Lastname(response.apellido_paterno + " " + response.apellido_materno);
     }
   };
 
@@ -99,7 +100,7 @@ const PatientProfile = (props) => {
           placeholder="Nombres"
           onChangeText={(name) => Name(name)}
           value={name}
-          editable={false}
+          // editable={false}
         />
 
         <TextInput
@@ -107,7 +108,7 @@ const PatientProfile = (props) => {
           placeholder="Apellidos"
           onChangeText={(lastname) => Lastname(lastname)}
           value={lastname}
-          editable={false}
+          // editable={false}
         />
 
         <View

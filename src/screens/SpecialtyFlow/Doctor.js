@@ -32,6 +32,7 @@ const Doctor = (props) => {
     async function retrieveSchedules() {
       const response = await ajax.schedulesDoctor(doctor.id);
       Schedules(response.body);
+      ShowSchedules(response.body.filter((s) => s.day == date.getDay()));
     }
     retrieveSchedules();
   }, []);

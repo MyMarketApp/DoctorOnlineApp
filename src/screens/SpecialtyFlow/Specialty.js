@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,23 +7,23 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   FlatList,
-} from 'react-native';
-import Button from 'react-native-button';
-import ajax from '../../services/Routes';
-import { useFonts } from '@use-expo/font';
-import { AppLoading } from 'expo';
-import { Header, Body, Right, Icon, Left } from 'native-base';
+} from "react-native";
+import Button from "react-native-button";
+import ajax from "../../services/Routes";
+import { useFonts } from "@use-expo/font";
+import { AppLoading } from "expo";
+import { Header, Body, Right, Icon, Left } from "native-base";
 
 const Specialty = (props) => {
   let [fontsLoaded] = useFonts({
-    'Montserrat-Medium': require('../../../assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-Bold': require('../../../assets/fonts/Montserrat-Bold.ttf'),
-    'Montserrat-ExtraBold': require('../../../assets/fonts/Montserrat-ExtraBold.ttf'),
+    "Montserrat-Medium": require("../../../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
+    "Montserrat-ExtraBold": require("../../../assets/fonts/Montserrat-ExtraBold.ttf"),
   });
   const { specialty } = props.route.params;
   const [doctors, Doctors] = useState([]);
   useEffect(() => {
-    console.log('Especialidad');
+    console.log("Especialidad");
     async function retrieveSpecialty() {
       const response = await ajax.doctorsSpecialty(specialty.id);
       Doctors(response.body);
@@ -35,18 +35,18 @@ const Specialty = (props) => {
     return <AppLoading />;
   } else {
     return (
-      <View style={{ flex: 1, backgroundColor: '#F6F7FA' }}>
+      <View style={{ flex: 1, backgroundColor: "#F6F7FA" }}>
         <FlatList
           ListHeaderComponent={
             <View style={styles.header}>
               <Text style={styles.headTitle}>{specialty.name}</Text>
               <Text style={styles.headDesc}>
-                Aqui va la descripcion, fingiendo que sea un texto largo{' '}
+                Aqui va la descripcion, fingiendo que sea un texto largo{" "}
                 {specialty.imageUrl}
               </Text>
               <View style={styles.secHeader}>
                 <Text style={styles.secTitle}>
-                  Doctores Afiliados{' '}
+                  Doctores Afiliados{" "}
                   <Text style={styles.totDocsText}>({doctors.length})</Text>
                 </Text>
               </View>
@@ -58,15 +58,15 @@ const Specialty = (props) => {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() =>
-                props.navigation.navigate('Doctor', { doctor: item })
+                props.navigation.navigate("Doctor", { doctor: item })
               }
             >
               <View style={styles.topDoc}>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
+                      flexDirection: "row",
+                      justifyContent: "flex-start",
                     }}
                   >
                     <Image
@@ -78,13 +78,13 @@ const Specialty = (props) => {
                   <View
                     style={{
                       flex: 1,
-                      flexDirection: 'column',
+                      flexDirection: "column",
                       marginHorizontal: 10,
                     }}
                   >
                     <View>
                       <Text style={styles.docNameText}>
-                        {item.idGender === 1 ? 'Dr.' : 'Dra.'} {item.name}{' '}
+                        {item.idGender === 1 ? "Dr." : "Dra."} {item.name}{" "}
                         {item.lastName}
                       </Text>
                     </View>
@@ -95,8 +95,8 @@ const Specialty = (props) => {
                 </View>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
                     marginRight: 5,
                   }}
                 >
@@ -105,7 +105,7 @@ const Specialty = (props) => {
               </View>
             </TouchableOpacity>
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     );
@@ -123,38 +123,38 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   headTitle: {
-    fontFamily: 'Montserrat-ExtraBold',
+    fontFamily: "Montserrat-ExtraBold",
     fontSize: 28,
-    color: '#414968',
+    color: "#414968",
     marginBottom: 34,
   },
   headDesc: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     fontSize: 14,
-    color: '#2F2929',
-    textAlign: 'justify',
+    color: "#2F2929",
+    textAlign: "justify",
     marginBottom: 34,
   },
   SecHeader: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
   },
   secTitle: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 20,
-    color: '#414968',
+    color: "#414968",
   },
   totDocsText: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     fontSize: 14,
-    color: '#828282',
+    color: "#828282",
   },
   topDoc: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
     borderRadius: 15,
     padding: 15,
     marginBottom: 15,
@@ -167,19 +167,19 @@ const styles = StyleSheet.create({
   },
   docNameText: {
     fontSize: 16,
-    fontFamily: 'Montserrat-Bold',
-    color: '#2F2929',
+    fontFamily: "Montserrat-Bold",
+    color: "#2F2929",
   },
   docSpecText: {
     fontSize: 12,
-    fontFamily: 'Montserrat-Medium',
-    color: '#4F4F4F',
+    fontFamily: "Montserrat-Medium",
+    color: "#4F4F4F",
   },
   rateText: {
     fontSize: 30,
-    fontFamily: 'Montserrat-Bold',
-    color: '#F2C94C',
-    textAlignVertical: 'top',
+    fontFamily: "Montserrat-Bold",
+    color: "#F2C94C",
+    textAlignVertical: "top",
   },
 });
 
