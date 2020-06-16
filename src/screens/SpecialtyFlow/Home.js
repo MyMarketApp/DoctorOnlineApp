@@ -14,23 +14,21 @@ import ajax from "../../services/Routes";
 import { useFonts } from "@use-expo/font";
 import { AppLoading } from "expo";
 import Carousel from "react-native-snap-carousel";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
 
 const Home = (props) => {
   let [fontsLoaded] = useFonts({
     "Montserrat-Medium": require("../../../assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
   });
-  const [specialties, Specialties] = useState([]);
+  const {specialties} = props;
+  // const [specialties, Specialties] = useState([]);
   const [topdoctors, TopDoctors] = useState([]);
   const [index, setIndex] = useState();
 
   useEffect(() => {
     console.log("EspecialidadesMain");
-    async function retrieveSpecialties() {
-      const response = await ajax.Specialties();
-      Specialties(response.body);
-    }
-    retrieveSpecialties();
   }, []);
 
   useEffect(() => {
@@ -260,4 +258,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

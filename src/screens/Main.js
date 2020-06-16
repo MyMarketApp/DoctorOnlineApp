@@ -2,17 +2,20 @@ import React, { useEffect } from 'react';
 import { Image } from 'react-native';
 import MainSidebar from '../components/MainSidebar';
 import ContactUs from './ContactUs';
-
+import axios from 'axios'
 import SpecialtyFlow from './SpecialtyFlow/SpecialtyFlow';
 import MyAppointmentsFlow from './MyAppointmentsFlow/MyAppointmentsFlow';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ProfilesFlow from './ProfileFlow/ProfilesFlow';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// const thunkMiddleware = require('redux-thunk').default
+import thunkMiddleware from 'redux-thunk'
 
+const URI = 'https://genkisalud.azurewebsites.net';
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +25,7 @@ const Main = (props) => {
     user: user,
     profiles: user.profiles,
     appointments: [],
+    specialties: [],
   };
 
   const reducer = (state = initialState, action) => {
@@ -54,12 +58,26 @@ const Main = (props) => {
           ...state,
           appointments: [...state.appointments, action.appointment],
         };
+      case 'SetSpecialties':
+        return {
+          ...state,
+          specialties: action.specialties,
+        };
     }
     return state;
   };
 
-  const store = createStore(reducer);
+  const fetchSpecialties = () => {
+    return function(dispatch) {
+      axios.get(URI + '/api/Specialty/all')
+      .then(response => {
+          dispatch({ type: "SetSpecialties", specialties:response.data.body })
+      })
+    }
+}
 
+  const store = createStore(reducer,applyMiddleware(thunkMiddleware));
+  store.dispatch(fetchSpecialties()) 
   useEffect(() => {
     // console.log(user);
   }, []);

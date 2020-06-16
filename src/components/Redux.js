@@ -1,8 +1,10 @@
+
 function mapStateToProps(state) {
   return {
     user: state.user,
     profiles: state.profiles,
     appointments: state.appointments,
+    specialties: state.specialties,
   };
 }
 
