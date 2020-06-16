@@ -22,7 +22,8 @@ const Home = (props) => {
     "Montserrat-Medium": require("../../../assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
   });
-  const {specialties} = props;
+  const { specialties } = props;
+  const { appointments } = props;
   const [topdoctors, TopDoctors] = useState([]);
   const [index, setIndex] = useState();
 
@@ -47,7 +48,7 @@ const Home = (props) => {
           />
         </View>
         <View style={styles.alert}>
-          <Text>Usted no tiene citas reservadas</Text>
+          <Text>Usted tiene {appointments.length} citas reservadas</Text>
         </View>
         <View style={styles.section}>
           <View style={styles.SecHeader}>

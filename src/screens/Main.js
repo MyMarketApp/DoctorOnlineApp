@@ -29,6 +29,10 @@ const Main = (props) => {
         .then(response => {
             dispatch({ type: "SetSpecialties", specialties:response.body })
         })
+      ajax.Appointments()
+        .then(response => {
+            dispatch({ type: "SetAppointments", appointments:response.body })
+        })
       ajax.Profiles(user.id)
         .then(response => {
             dispatch({ type: "SetProfiles", profiles:response.body })

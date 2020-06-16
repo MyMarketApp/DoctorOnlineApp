@@ -8,6 +8,7 @@ const initialState = {
     profiles: [],
     appointments: [],
     specialties: [],
+    appointments: [],
   };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +50,11 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           profiles: action.profiles,
+        };
+    case 'SetAppointments':
+        return {
+          ...state,
+          appointments: action.appointments,
         };
     }
     

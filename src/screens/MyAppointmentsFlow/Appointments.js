@@ -16,11 +16,11 @@ import ajax from "../../services/Routes";
 import Carousel from "react-native-snap-carousel";
 
 const Appointments = (props) => {
-  const [appointments, Appointments] = useState([]);
+  const { appointments } = props;
+  const [showAppointments, ShowAppointments] = useState([]);
   useEffect(() => {
     console.log("Appointments");
     async function retrieveAppointments() {
-      const response = await ajax.Appointments();
       var d = new Date();
       let date =
         d.getFullYear() +
@@ -30,15 +30,14 @@ const Appointments = (props) => {
           : (d.getMonth() + 1).toString()) +
         "-" +
         d.getDate();
-      let buah = response.body.filter((a) => a.date >= date);
-      Appointments(response.body.filter((a) => a.date >= date));
+      ShowAppointments(appointments.filter((a) => a.date >= date));
     }
     retrieveAppointments();
   }, []);
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={appointments}
+        data={showAppointments}
         horizontal={false}
         renderItem={({ item }) => (
           <TouchableOpacity

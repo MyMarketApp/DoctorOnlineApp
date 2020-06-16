@@ -20,7 +20,6 @@ const Profiles = (props) => {
   const { user } = props;
   useEffect(() => {
     console.log("Perfiles");
-    console.log(props)
   }, []);
   return (
     <View style={{ flex: 1 }}>
