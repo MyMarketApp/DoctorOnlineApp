@@ -41,7 +41,7 @@ const Login = (props) => {
           alert(response.message);
           if (response.status)
             props.navigation.navigate("PatientProfile", {
-              UserId: response.body.id,
+              user: response.body,
               photoUrl: result.user.photoUrl,
             });
         }

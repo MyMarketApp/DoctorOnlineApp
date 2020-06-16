@@ -25,10 +25,13 @@ const Main = (props) => {
   const initData = () => {
     return function(dispatch) {
       dispatch({ type: "SetUser", user })
-      dispatch({ type: "SetProfiles", profiles: user.profiles })
       ajax.Specialties()
         .then(response => {
             dispatch({ type: "SetSpecialties", specialties:response.body })
+        })
+      ajax.Profiles(user.id)
+        .then(response => {
+            dispatch({ type: "SetProfiles", specialties:response.body })
         })
     }
   }

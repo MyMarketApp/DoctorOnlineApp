@@ -13,15 +13,15 @@ const Welcome = (props) => {
   });
 
   const { name } = props.route.params;
-  const { UserId } = props.route.params;
-  const [user, User] = useState();
+  const { user } = props.route.params;
+  // const [user, User] = useState();
   useEffect(() => {
     console.log("welcome");
-    async function retrieveUser() {
-      const response = await ajax.findUser(UserId);
-      User(response.body);
-    }
-    retrieveUser();
+    // async function retrieveUser() {
+    //   const response = await ajax.findUser(UserId);
+    //   User(response.body);
+    // }
+    // retrieveUser();
   }, []);
 
   if (!fontsLoaded) {

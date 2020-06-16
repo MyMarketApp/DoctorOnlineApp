@@ -20,7 +20,7 @@ const PatientProfile = (props) => {
     "Montserrat-Medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
   });
-  const { UserId } = props.route.params;
+  const { user } = props.route.params;
   const { photoUrl } = props.route.params;
   const [name, Name] = useState();
   const [lastname, Lastname] = useState();
@@ -41,7 +41,7 @@ const PatientProfile = (props) => {
         name,
         lastname,
         gender,
-        UserId,
+        user.id,
         dni,
         birthdate,
         imageUrl
@@ -49,7 +49,7 @@ const PatientProfile = (props) => {
       alert(response.message);
       if (response.status)
         props.navigation.navigate("Welcome", {
-          UserId,
+          user,
           name: response.body.name,
         });
     }

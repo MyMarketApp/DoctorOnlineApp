@@ -127,6 +127,16 @@ export default {
     }
   },
 
+  async Profiles(id) {
+    try {
+      let response = await fetch(URI + '/api/User/' + id + '/profiles', getRequestOptions);
+      let responseJsonData = await response.json();
+      return responseJsonData;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   async doctorsSpecialty(id) {
     try {
       let response = await fetch(
