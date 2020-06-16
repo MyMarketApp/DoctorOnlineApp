@@ -1,4 +1,4 @@
-// const URI = "http://localhost:8000";
+import axios from 'axios'
 const URI = 'https://genkisalud.azurewebsites.net';
 const postRequestOptions = {
   method: 'POST',

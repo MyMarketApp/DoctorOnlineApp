@@ -12,74 +12,31 @@ import { Provider } from 'react-redux';
 import ProfilesFlow from './ProfileFlow/ProfilesFlow';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// const thunkMiddleware = require('redux-thunk').default
 import thunkMiddleware from 'redux-thunk'
+import { initialState, reducer } from "../components/AsyncActions";
+import ajax from "../services/Routes";
 
-const URI = 'https://genkisalud.azurewebsites.net';
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 const Main = (props) => {
   const { user } = props.route.params;
-  const initialState = {
-    user: user,
-    profiles: user.profiles,
-    appointments: [],
-    specialties: [],
-  };
 
-  const reducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'SetUser':
-        return {
-          ...state,
-          user: action.user,
-        };
-      case 'UpdatePatient':
-        return {
-          ...state,
-          profiles: state.profiles.map((profile) => {
-            if (profile.id == action.patient.id) return action.patient;
-            return profile;
-          }),
-        };
-      case 'AddPatient':
-        return {
-          ...state,
-          profiles: [...state.profiles, action.patient],
-        };
-      case 'SetAppointments':
-        return {
-          ...state,
-          appointments: action.appointments,
-        };
-      case 'AddAppointment':
-        return {
-          ...state,
-          appointments: [...state.appointments, action.appointment],
-        };
-      case 'SetSpecialties':
-        return {
-          ...state,
-          specialties: action.specialties,
-        };
-    }
-    return state;
-  };
-
-  const fetchSpecialties = () => {
+  const initData = () => {
     return function(dispatch) {
-      axios.get(URI + '/api/Specialty/all')
-      .then(response => {
-          dispatch({ type: "SetSpecialties", specialties:response.data.body })
-      })
+      dispatch({ type: "SetUser", user })
+      dispatch({ type: "SetProfiles", profiles: user.profiles })
+      ajax.Specialties()
+        .then(response => {
+            dispatch({ type: "SetSpecialties", specialties:response.body })
+        })
     }
-}
+  }
 
   const store = createStore(reducer,applyMiddleware(thunkMiddleware));
-  store.dispatch(fetchSpecialties()) 
+  store.dispatch(initData()) 
   useEffect(() => {
-    // console.log(user);
+    console.log("Main");
   }, []);
   return (
     <Provider store={store}>

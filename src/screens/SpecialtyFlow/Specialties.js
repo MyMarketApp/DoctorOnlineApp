@@ -13,6 +13,8 @@ import ajax from '../../services/Routes';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import { Header, Body, Right, Icon, Left } from 'native-base';
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
 
 const Specialties = (props) => {
   let [fontsLoaded] = useFonts({
@@ -20,14 +22,9 @@ const Specialties = (props) => {
     'Montserrat-Bold': require('../../../assets/fonts/Montserrat-Bold.ttf'),
     'Montserrat-ExtraBold': require('../../../assets/fonts/Montserrat-ExtraBold.ttf'),
   });
-  const [specialties, Specialties] = useState([]);
+  const {specialties} = props;
   useEffect(() => {
     console.log('Especialidades');
-    async function retrieveSpecialties() {
-      const response = await ajax.Specialties();
-      Specialties(response.body);
-    }
-    retrieveSpecialties();
   }, []);
 
   if (!fontsLoaded) {
@@ -102,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Specialties;
+export default connect(mapStateToProps, mapDispatchToProps)(Specialties);

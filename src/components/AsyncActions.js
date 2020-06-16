@@ -1,10 +1,6 @@
-const redux = require('redux');
-const createStore = redux.createStore;
-const applyMiddleware = redux.applyMiddleware;
-// import { createStore, applyMiddleware,  } from 'redux';
-const thunkMiddleware = require('redux-thunk').default
-// import axios from 'axios'
-const axios = require('axios')
+import { createStore, applyMiddleware,  } from 'redux';
+import thunkMiddleware from 'redux-thunk'
+import axios from 'axios'
 const URI = 'https://genkisalud.azurewebsites.net';
 
 const initialState = {
@@ -49,20 +45,26 @@ const reducer = (state = initialState, action) => {
           ...state,
           specialties: action.specialties,
         };
+    case 'SetProfiles':
+        return {
+          ...state,
+          profiles: action.profiles,
+        };
     }
+    
     return state;
   };
 
-  const fetchSpecialties = () => {
-      return function(dispatch) {
-        axios.get(URI + '/api/Specialty/all')
-        .then(response => {
-            dispatch({ type: "SetSpecialties", specialties:response.body })
-        })
-      }
-  }
+  // const fetchSpecialties = () => {
+  //     return function(dispatch) {
+  //       axios.get(URI + '/api/Specialty/all')
+  //       .then(response => {
+  //           dispatch({ type: "SetSpecialties", specialties:response.body })
+  //       })
+  //     }
+  // }
 
-  const store = createStore(reducer,applyMiddleware(thunkMiddleware))
-  store.dispatch(fetchSpecialties()) 
+  // const store = createStore(reducer,applyMiddleware(thunkMiddleware));
+  // store.dispatch(fetchSpecialties()) ;
 
-  export {store};
+  export {initialState, reducer};

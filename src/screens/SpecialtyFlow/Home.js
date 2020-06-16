@@ -23,16 +23,11 @@ const Home = (props) => {
     "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
   });
   const {specialties} = props;
-  // const [specialties, Specialties] = useState([]);
   const [topdoctors, TopDoctors] = useState([]);
   const [index, setIndex] = useState();
 
   useEffect(() => {
     console.log("EspecialidadesMain");
-  }, []);
-
-  useEffect(() => {
-    console.log("TopDoctors");
     async function retrieveTopDoctors() {
       const response = await ajax.TopDoctors();
       TopDoctors(response.body);
