@@ -31,7 +31,7 @@ const Main = (props) => {
         })
       ajax.Profiles(user.id)
         .then(response => {
-            dispatch({ type: "SetProfiles", specialties:response.body })
+            dispatch({ type: "SetProfiles", profiles:response.body })
         })
     }
   }
