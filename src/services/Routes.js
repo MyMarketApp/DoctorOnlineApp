@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 const URI = 'https://genkisalud.azurewebsites.net';
 const postRequestOptions = {
   method: 'POST',
@@ -129,7 +129,10 @@ export default {
 
   async Profiles(id) {
     try {
-      let response = await fetch(URI + '/api/User/' + id + '/profiles', getRequestOptions);
+      let response = await fetch(
+        URI + '/api/User/' + id + '/profiles',
+        getRequestOptions
+      );
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {

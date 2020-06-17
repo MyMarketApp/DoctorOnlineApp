@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import Specialties from "./Specialties";
-import Specialty from "./Specialty";
-import Doctor from "./Doctor";
-import NewAppointment from "./NewAppointment";
-import NewAppointmentSuccess from "./NewAppointmentSuccess";
-import Home from "./Home";
-import PurchaseProduct from "../Purchase/PurchaseProduct";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useEffect } from 'react';
+import Specialties from './Specialties';
+import Specialty from './Specialty';
+import DoctorDetail from './DoctorDetail';
+import DoctorCreateAppo from './DoctorCreateAppo';
+import NewAppointment from './NewAppointment';
+import NewAppointmentSuccess from './NewAppointmentSuccess';
+import Home from './Home';
+import PurchaseProduct from '../Purchase/PurchaseProduct';
+import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 const SpecialtyFlow = (props) => {
@@ -35,8 +36,15 @@ const SpecialtyFlow = (props) => {
         }}
       />
       <Stack.Screen
-        name="Doctor"
-        component={Doctor}
+        name="DoctorDetail"
+        component={DoctorDetail}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="DoctorCreateAppo"
+        component={DoctorCreateAppo}
         options={{
           headerShown: false,
         }}

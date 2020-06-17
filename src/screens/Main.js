@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Image } from 'react-native';
 import MainSidebar from '../components/MainSidebar';
 import ContactUs from './ContactUs';
-import axios from 'axios'
+import axios from 'axios';
 import SpecialtyFlow from './SpecialtyFlow/SpecialtyFlow';
 import MyAppointmentsFlow from './MyAppointmentsFlow/MyAppointmentsFlow';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -12,9 +12,9 @@ import { Provider } from 'react-redux';
 import ProfilesFlow from './ProfileFlow/ProfilesFlow';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import thunkMiddleware from 'redux-thunk'
-import { initialState, reducer } from "../components/AsyncActions";
-import ajax from "../services/Routes";
+import thunkMiddleware from 'redux-thunk';
+import { initialState, reducer } from '../components/AsyncActions';
+import ajax from '../services/Routes';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -23,27 +23,24 @@ const Main = (props) => {
   const { user } = props.route.params;
 
   const initData = () => {
-    return function(dispatch) {
-      dispatch({ type: "SetUser", user })
-      ajax.Specialties()
-        .then(response => {
-            dispatch({ type: "SetSpecialties", specialties:response.body })
-        })
-      ajax.Appointments()
-        .then(response => {
-            dispatch({ type: "SetAppointments", appointments:response.body })
-        })
-      ajax.Profiles(user.id)
-        .then(response => {
-            dispatch({ type: "SetProfiles", profiles:response.body })
-        })
-    }
-  }
+    return function (dispatch) {
+      dispatch({ type: 'SetUser', user });
+      ajax.Specialties().then((response) => {
+        dispatch({ type: 'SetSpecialties', specialties: response.body });
+      });
+      ajax.Appointments().then((response) => {
+        dispatch({ type: 'SetAppointments', appointments: response.body });
+      });
+      ajax.Profiles(user.id).then((response) => {
+        dispatch({ type: 'SetProfiles', profiles: response.body });
+      });
+    };
+  };
 
-  const store = createStore(reducer,applyMiddleware(thunkMiddleware));
-  store.dispatch(initData()) 
+  const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+  store.dispatch(initData());
   useEffect(() => {
-    console.log("Main");
+    console.log('Main');
   }, []);
   return (
     <Provider store={store}>
