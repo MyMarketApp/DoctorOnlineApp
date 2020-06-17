@@ -8,9 +8,10 @@ import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
 import ajax from "../../services/Routes";
 
 const PurchaseProduct = (props) => {
-  const { doctor } = props.route.params;
   const { appointment } = props.route.params;
+  const { selectedPrice } = props.route.params;
   const { user } = props;
+
   useEffect(() => {
     console.log("Purchase Product");
     // console.log(props);
@@ -31,7 +32,7 @@ const PurchaseProduct = (props) => {
       appointment.idPatient,
       appointment.idSchedule
     );
-  console.log(response.body);
+    console.log(response.body);
     props.navigation.navigate("NewAppointmentSuccess");
   };
   const onCanceledHandler = () => {
@@ -59,7 +60,7 @@ const PurchaseProduct = (props) => {
     <WebView
       originWhitelist={["*"]}
       source={{
-        html: stripeCheckoutRedirectHTML(user, doctor),
+        html: stripeCheckoutRedirectHTML(user, selectedPrice),
       }}
       onLoadStart={onLoadStart}
     />

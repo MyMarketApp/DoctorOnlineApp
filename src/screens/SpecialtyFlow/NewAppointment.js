@@ -22,6 +22,7 @@ const NewAppointment = (props) => {
   const { doctor } = props.route.params;
   const { patient } = props.route.params;
   const { schedule } = props.route.params;
+  const { selectedPrice } = props.route.params;
   useEffect(() => {
     console.log("New Appointment");
   }, []);
@@ -38,10 +39,10 @@ const NewAppointment = (props) => {
       patient.id,
       schedule.id
     );
-    props.addAppointment(response.body)
+    props.addAppointment(response.body);
     props.navigation.navigate("PurchaseProduct", {
-      doctor,
       appointment: response.body,
+      selectedPrice,
     });
   };
 

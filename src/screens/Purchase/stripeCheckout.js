@@ -1,6 +1,6 @@
 import { STRIPE } from "./stripeSettings";
 
-export function stripeCheckoutRedirectHTML(user, doctor) {
+export function stripeCheckoutRedirectHTML(user, selectedPrice) {
   return `
   <html>
     <body>
@@ -24,7 +24,7 @@ export function stripeCheckoutRedirectHTML(user, doctor) {
           window.onload = function () {
             stripe.redirectToCheckout({
               lineItems: [
-                {price: '${doctor.idStripePrice}', quantity: 1},
+                {price: '${selectedPrice}', quantity: 1},
               ],
               mode: 'payment',
               // https://stripe.com/docs/payments/checkout/fulfillment

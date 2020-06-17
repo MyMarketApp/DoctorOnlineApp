@@ -19,6 +19,8 @@ import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
 
 const Doctor = (props) => {
   const { doctor } = props.route.params;
+  const { selectedPrice } = props.route.params;
+  const { selectedRate } = props.route.params;
   const { profiles } = props;
   const [schedules, Schedules] = useState([]);
   const [selectedschedule, SelectedSchedule] = useState();
@@ -28,7 +30,7 @@ const Doctor = (props) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    console.log("Doctor");
+    console.log("Resumen");
     async function retrieveSchedules() {
       const response = await ajax.schedulesDoctor(doctor.id);
       Schedules(response.body);
@@ -52,6 +54,7 @@ const Doctor = (props) => {
         date,
         schedule: selectedschedule,
         patient: selectedProfile,
+        selectedPrice,
       });
   };
   return (
