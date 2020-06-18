@@ -1,12 +1,12 @@
-import axios from 'axios';
-const URI = 'https://genkisalud.azurewebsites.net';
+import axios from "axios";
+const URI = "https://genkisalud.azurewebsites.net";
 const postRequestOptions = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
 };
 const getRequestOptions = {
-  method: 'GET',
-  headers: { 'Content-Type': 'application/json' },
+  method: "GET",
+  headers: { "Content-Type": "application/json" },
 };
 
 export default {
@@ -19,7 +19,7 @@ export default {
         score,
         idType,
       });
-      let response = await fetch(URI + '/api/User/add', postRequestOptions);
+      let response = await fetch(URI + "/api/User/add", postRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
@@ -30,7 +30,7 @@ export default {
   async dataFromReniec(dni) {
     try {
       let response = await fetch(
-        'https://api.reniec.cloud/dni/' + dni,
+        "https://api.reniec.cloud/dni/" + dni,
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -51,7 +51,7 @@ export default {
         birthdate,
         imageUrl,
       });
-      let response = await fetch(URI + '/api/Patient/add', postRequestOptions);
+      let response = await fetch(URI + "/api/Patient/add", postRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
@@ -62,7 +62,7 @@ export default {
   async findUser(id) {
     try {
       let response = await fetch(
-        URI + '/api/User/find/' + id,
+        URI + "/api/User/find/" + id,
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -75,7 +75,7 @@ export default {
   async verifyUser(email) {
     try {
       let response = await fetch(
-        URI + '/api/User/' + email + '/verify',
+        URI + "/api/User/" + email + "/verify",
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -107,7 +107,7 @@ export default {
         imageUrl,
       });
       let response = await fetch(
-        URI + '/api/Patient/update',
+        URI + "/api/Patient/update",
         postRequestOptions
       );
       let responseJsonData = await response.json();
@@ -119,7 +119,7 @@ export default {
 
   async Specialties() {
     try {
-      let response = await fetch(URI + '/api/Specialty/all', getRequestOptions);
+      let response = await fetch(URI + "/api/Specialty/all", getRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
@@ -130,7 +130,7 @@ export default {
   async Profiles(id) {
     try {
       let response = await fetch(
-        URI + '/api/User/' + id + '/profiles',
+        URI + "/api/User/" + id + "/profiles",
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -143,7 +143,7 @@ export default {
   async doctorsSpecialty(id) {
     try {
       let response = await fetch(
-        URI + '/api/Specialty/' + id + '/doctors',
+        URI + "/api/Specialty/" + id + "/doctors",
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -156,7 +156,7 @@ export default {
   async schedulesDoctor(id) {
     try {
       let response = await fetch(
-        URI + '/api/Doctor/' + id + '/schedules',
+        URI + "/api/Doctor/" + id + "/schedules",
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -175,7 +175,8 @@ export default {
     idDoctor,
     idStatus,
     idPatient,
-    idSchedule
+    idSchedule,
+    idType
   ) {
     try {
       postRequestOptions.body = JSON.stringify({
@@ -188,9 +189,10 @@ export default {
         idStatus,
         idPatient,
         idSchedule,
+        idType,
       });
       let response = await fetch(
-        URI + '/api/Appointment/add',
+        URI + "/api/Appointment/add",
         postRequestOptions
       );
       let responseJsonData = await response.json();
@@ -210,7 +212,8 @@ export default {
     idDoctor,
     idStatus,
     idPatient,
-    idSchedule
+    idSchedule,
+    idType
   ) {
     try {
       postRequestOptions.body = JSON.stringify({
@@ -224,9 +227,10 @@ export default {
         idStatus,
         idPatient,
         idSchedule,
+        idType,
       });
       let response = await fetch(
-        URI + '/api/Appointment/update',
+        URI + "/api/Appointment/update",
         postRequestOptions
       );
       let responseJsonData = await response.json();
@@ -239,7 +243,7 @@ export default {
   async Appointments(dni) {
     try {
       let response = await fetch(
-        URI + '/api/Appointment/all',
+        URI + "/api/Appointment/all",
         getRequestOptions
       );
       let responseJsonData = await response.json();
@@ -252,7 +256,7 @@ export default {
   async loginUser(email, password) {
     try {
       postRequestOptions.body = JSON.stringify({ email, password });
-      let response = await fetch(URI + '/api/User/login', postRequestOptions);
+      let response = await fetch(URI + "/api/User/login", postRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {
@@ -262,7 +266,7 @@ export default {
 
   async TopDoctors() {
     try {
-      let response = await fetch(URI + '/api/Doctor/top', getRequestOptions);
+      let response = await fetch(URI + "/api/Doctor/top", getRequestOptions);
       let responseJsonData = await response.json();
       return responseJsonData;
     } catch (e) {

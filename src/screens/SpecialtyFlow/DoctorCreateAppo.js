@@ -55,6 +55,7 @@ const Doctor = (props) => {
         schedule: selectedschedule,
         patient: selectedProfile,
         selectedPrice,
+        selectedRate,
       });
   };
   return (
