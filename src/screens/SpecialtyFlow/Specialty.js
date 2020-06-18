@@ -100,7 +100,7 @@ const Specialty = (props) => {
                     marginRight: 5,
                   }}
                 >
-                  <Text style={styles.rateText}>{item.rate}</Text>
+                  <Text style={styles.rateText}>{item.user.score}</Text>
                 </View>
               </View>
             </TouchableOpacity>
