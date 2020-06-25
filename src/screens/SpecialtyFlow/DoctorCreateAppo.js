@@ -154,6 +154,7 @@ const Doctor = (props) => {
             }}
           >
             <Text
+              onPress={() => setShow(true)}
               style={{
                 fontSize: 14,
                 fontFamily: 'Montserrat-Medium',
@@ -169,7 +170,7 @@ const Doctor = (props) => {
                   ? '0' + (date.getMonth() + 1)
                   : date.getMonth() + 1) +
                 '-' +
-                date.getDate()}
+                (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())}
             </Text>
             <View style={{ alignContent: 'center', marginRight: 10 }}>
               <Icon
