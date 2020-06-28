@@ -1,10 +1,12 @@
-import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, View, Image, Text, Platform } from "react-native";
 import Button from "react-native-button";
 import { useFonts } from "@use-expo/font";
 import { AppLoading } from "expo";
 
 const Presentation = (props) => {
+  useEffect(() => {}, []);
+
   let [fontsLoaded] = useFonts({
     "Montserrat-Medium": require("../../assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),

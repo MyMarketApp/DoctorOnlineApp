@@ -26,7 +26,14 @@ const UserRegistration = (props) => {
     if (!email || !password || !password2) alert("completar datos");
     else if (password != password2) alert("contraseñas no coinciden");
     else {
-      let response = await ajax.addUser(email, password, null, 5.0, UserType);
+      let response = await ajax.addUser(
+        email,
+        password,
+        null,
+        5.0,
+        UserType,
+        null
+      );
       alert(response.message);
       if (response.status)
         props.navigation.navigate("PatientProfile", {
