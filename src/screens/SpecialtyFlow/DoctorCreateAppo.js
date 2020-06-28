@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from 'react';
 import {
+  ScrollView,
   StyleSheet,
   View,
   Text,
@@ -7,6 +8,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   FlatList,
+  Picker,
 } from 'react-native';
 import Button from 'react-native-button';
 import ajax from '../../services/Routes';
@@ -86,11 +88,57 @@ const Doctor = (props) => {
     }
   };
 
+  let ScheduleHours = showSchedules.map((item, index) => {
+    return (
+      <Picker.Item
+        label={item.start.substring(0, 5) + ' - ' + item.end.substring(0, 5)}
+        value={item}
+        key={item.id}
+      />
+    );
+  });
+
+  let ShowProfiles = profiles.map((item, index) => {
+    return (
+      <View>
+        <View
+          style={{
+            width: '100%',
+            alignItems: 'flex-start',
+            marginBottom: 10,
+          }}
+          key={item.id}
+        >
+          <TouchableOpacity onPress={() => SelectedProfile(item)}>
+            <Image
+              style={
+                selectedProfile && selectedProfile.id == item.id
+                  ? styles.ImageSelected
+                  : styles.Image
+              }
+              source={{ uri: item.imageUrl }}
+            />
+            <Text
+              style={{
+                fontFamily: 'Montserrat-Medium',
+                fontSize: 14,
+                marginTop: 15,
+                textAlign: 'center',
+              }}
+            >
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  });
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {
     return (
-      <View style={{ flex: 1, backgroundColor: '#F6F7FA' }}>
+      <ScrollView style={{ flex: 1, backgroundColor: '#F6F7FA' }}>
         <View style={styles.header}>
           <Text style={styles.headTitle}>Reservar cita</Text>
         </View>
@@ -151,6 +199,7 @@ const Doctor = (props) => {
               padding: 10,
               justifyContent: 'space-between',
               marginTop: 25,
+              height: 50,
             }}
           >
             <Text
@@ -199,84 +248,58 @@ const Doctor = (props) => {
             Horarios Disponibles
             <Text style={styles.secSubtitle}> ({showSchedules.length})</Text>
           </Text>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: 25,
-            }}
-          >
-            <FlatList
-              data={showSchedules}
-              horizontal={false}
-              numColumns="2"
-              renderItem={({ item }) => (
-                <View
-                  style={
-                    selectedschedule && selectedschedule.id == item.id
-                      ? styles.schedBoxSelected
-                      : styles.schedBox
-                  }
-                >
-                  <TouchableOpacity onPress={() => SelectedSchedule(item)}>
-                    <View>
-                      <Text
-                        style={
-                          selectedschedule && selectedschedule.id == item.id
-                            ? styles.schedTxtSelected
-                            : styles.schedTxt
-                        }
-                      >
-                        {item.start.substring(0, 5)}-{item.end.substring(0, 5)}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              )}
-              keyExtractor={(item) => item.id}
-            />
-          </View>
+          {showSchedules.length === 0 ? (
+            <View></View>
+          ) : (
+            <View
+              style={{
+                height: 50,
+                borderRadius: 15,
+                borderWidth: 0,
+                backgroundColor: 'white',
+                overflow: 'hidden',
+                paddingLeft: 20,
+                marginTop: 25,
+              }}
+            >
+              <Picker
+                style={{
+                  paddingLeft: 25,
+                  backgroundColor: 'white',
+                }}
+                selectedValue={selectedschedule}
+                onValueChange={(selectedschedule) =>
+                  SelectedSchedule(selectedschedule)
+                }
+              >
+                {ScheduleHours}
+              </Picker>
+            </View>
+          )}
         </View>
 
         <View style={styles.section}>
           <Text style={styles.secTitle}>Seleccione Perfil</Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              marginTop: 25,
+            }}
+          >
+            {ShowProfiles}
+          </View>
         </View>
 
-        <View style={{ flex: 1 }}>
-          <FlatList
-            data={profiles}
-            horizontal={false}
-            numColumns="2"
-            renderItem={({ item }) => (
-              <View
-                style={{ width: '50%', alignItems: 'center', marginBottom: 20 }}
-              >
-                <View style={{ alignItems: 'center' }}>
-                  <TouchableOpacity onPress={() => SelectedProfile(item)}>
-                    <Image
-                      style={
-                        selectedProfile && selectedProfile.id == item.id
-                          ? styles.ImageSelected
-                          : styles.Image
-                      }
-                      source={{ uri: item.imageUrl }}
-                    />
-                  </TouchableOpacity>
-                  <Text style={{ fontSize: 20, marginTop: 15 }}>
-                    {item.name}
-                  </Text>
-                </View>
-              </View>
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.section}>
           <Button style={styles.Button2} onPress={createAppointment}>
-            Continnuar
+            Continuar
           </Button>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 };
@@ -301,7 +324,7 @@ const styles = StyleSheet.create({
   secSched: {
     marginHorizontal: 25,
     justifyContent: 'center',
-    marginBottom: 5,
+    marginBottom: 25,
   },
   secTitle: {
     fontFamily: 'Montserrat-Bold',
@@ -387,16 +410,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   Image: {
-    width: 140,
-    height: 100,
+    width: 60,
+    height: 60,
     borderColor: '#dddddd',
     borderWidth: 1,
+    borderRadius: 30,
   },
   ImageSelected: {
-    width: 140,
-    height: 100,
+    width: 60,
+    height: 60,
     borderColor: '#dddddd',
     borderWidth: 1,
+    borderRadius: 30,
     opacity: 0.3,
   },
   Button2: {

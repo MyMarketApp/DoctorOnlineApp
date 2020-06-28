@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,19 +8,19 @@ import {
   ScrollView,
   Picker,
   TouchableOpacity,
-} from "react-native";
-import Button from "react-native-button";
-import { useFonts } from "@use-expo/font";
-import { AppLoading } from "expo";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import ajax from "../../services/Routes";
-import { connect } from "react-redux";
-import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
+} from 'react-native';
+import Button from 'react-native-button';
+import { useFonts } from '@use-expo/font';
+import { AppLoading } from 'expo';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import ajax from '../../services/Routes';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../components/Redux';
 
 const PatientProfileNew = (props) => {
   let [fontsLoaded] = useFonts({
-    "Montserrat-Medium": require("../../../assets/fonts/Montserrat-Medium.ttf"),
-    "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
+    'Montserrat-Medium': require('../../../assets/fonts/Montserrat-Medium.ttf'),
+    'Montserrat-Bold': require('../../../assets/fonts/Montserrat-Bold.ttf'),
   });
   const { UserId } = props.route.params;
   const [name, Name] = useState();
@@ -31,11 +31,11 @@ const PatientProfileNew = (props) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    console.log("New Profile Patient 1");
+    console.log('New Profile Patient 1');
   }, []);
 
   const createUser = async () => {
-    if (!dni || !name || !lastname || !birthdate) alert("completar datos");
+    if (!dni || !name || !lastname || !birthdate) alert('completar datos');
     else {
       let response = await ajax.addPatient(
         name,
@@ -49,7 +49,7 @@ const PatientProfileNew = (props) => {
       alert(response.message);
       if (response.status) {
         props.addPatient(response.body);
-        props.navigation.navigate("Profiles");
+        props.navigation.navigate('Profiles');
       }
     }
   };
@@ -59,7 +59,7 @@ const PatientProfileNew = (props) => {
     if (dni.length == 8) {
       let response = await ajax.dataFromReniec(dni);
       Name(response.nombres);
-      Lastname(response.apellido_paterno + " " + response.apellido_materno);
+      Lastname(response.apellido_paterno + ' ' + response.apellido_materno);
     }
   };
 
@@ -67,19 +67,19 @@ const PatientProfileNew = (props) => {
     return <AppLoading />;
   } else {
     return (
-      <ScrollView style={{ backgroundColor: "#F6F7FA" }}>
+      <ScrollView style={{ backgroundColor: '#F6F7FA' }}>
         <View style={styles.Login}>
           <Image
             style={{ width: 181, height: 123 }}
-            source={require("../../../assets/LogoVertical.png")}
+            source={require('../../../assets/LogoVertical.png')}
           />
           <Text
             style={{
               fontSize: 20,
               marginTop: 10,
               marginBottom: 30,
-              color: "#414968",
-              fontFamily: "Montserrat-Bold",
+              color: '#414968',
+              fontFamily: 'Montserrat-Bold',
             }}
           >
             Actualizar Perfil
@@ -98,7 +98,7 @@ const PatientProfileNew = (props) => {
           placeholder="Nombres"
           onChangeText={(name) => Name(name)}
           value={name}
-          editable={false}
+          editable={true}
         />
 
         <TextInput
@@ -106,18 +106,18 @@ const PatientProfileNew = (props) => {
           placeholder="Apellidos"
           onChangeText={(lastname) => Lastname(lastname)}
           value={lastname}
-          editable={false}
+          editable={true}
         />
 
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: 'row',
             paddingLeft: 25,
           }}
         >
           <TouchableOpacity onPress={() => setShow(true)}>
             <Image
-              source={require("../../../assets/icons/ContactUs.png")}
+              source={require('../../../assets/icons/ContactUs.png')}
               style={{
                 width: 25,
                 height: 25,
@@ -127,9 +127,9 @@ const PatientProfileNew = (props) => {
           </TouchableOpacity>
           <Text style={{ fontSize: 25, paddingLeft: 25 }}>
             {birthdate.getFullYear() +
-              "-" +
+              '-' +
               birthdate.getMonth() +
-              "-" +
+              '-' +
               birthdate.getDate()}
           </Text>
         </View>
@@ -169,39 +169,39 @@ const PatientProfileNew = (props) => {
 const styles = StyleSheet.create({
   Login: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 80,
   },
   Input: {
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingLeft: 25,
     borderRadius: 15,
-    fontFamily: "Montserrat-Medium",
+    fontFamily: 'Montserrat-Medium',
     margin: 10,
     marginHorizontal: 25,
   },
   Button: {
-    backgroundColor: "#639BEF",
-    textAlignVertical: "center",
-    color: "white",
+    backgroundColor: '#639BEF',
+    textAlignVertical: 'center',
+    color: 'white',
     borderRadius: 15,
     height: 50,
     width: 360,
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
     fontSize: 16,
   },
   Footer: {
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 20,
   },
   Header: {
-    alignItems: "center",
-    justifyContent: "flex-end",
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   InputRow: {
-    alignItems: "center",
+    alignItems: 'center',
     width: 360,
   },
 });
