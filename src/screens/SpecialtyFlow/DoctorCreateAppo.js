@@ -71,6 +71,7 @@ const Doctor = (props) => {
         patient: selectedProfile,
         selectedPrice,
         selectedRate,
+        doctorSpec,
       });
   };
 
