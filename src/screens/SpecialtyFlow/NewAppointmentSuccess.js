@@ -36,7 +36,10 @@ const NewAppointmentSuccess = (props) => {
           </View>
         </View>
         <View style={styles.Buttons}>
-          <Button style={styles.Button} onPress={() => props.navigation.navigate("MyAppointmentsFlow")}>
+          <Button
+            style={styles.Button}
+            onPress={() => props.navigation.navigate("MyAppointmentsFlow")}
+          >
             Ver cita
           </Button>
         </View>

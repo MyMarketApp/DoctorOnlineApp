@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,22 +7,23 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   FlatList,
-} from 'react-native';
-import Button from 'react-native-button';
-import ajax from '../../services/Routes';
-import * as Calendar from 'expo-calendar';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from '../../components/Redux';
-import { useFonts } from '@use-expo/font';
-import { AppLoading } from 'expo';
-import { Icon } from 'react-native-elements';
+  ScrollView,
+} from "react-native";
+import Button from "react-native-button";
+import ajax from "../../services/Routes";
+import * as Calendar from "expo-calendar";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { connect } from "react-redux";
+import { mapStateToProps, mapDispatchToProps } from "../../components/Redux";
+import { useFonts } from "@use-expo/font";
+import { AppLoading } from "expo";
+import { Icon } from "react-native-elements";
 
 const Doctor = (props) => {
   let [fontsLoaded] = useFonts({
-    'Montserrat-Medium': require('../../../assets/fonts/Montserrat-Medium.ttf'),
-    'Montserrat-Bold': require('../../../assets/fonts/Montserrat-Bold.ttf'),
-    'Montserrat-ExtraBold': require('../../../assets/fonts/Montserrat-ExtraBold.ttf'),
+    "Montserrat-Medium": require("../../../assets/fonts/Montserrat-Medium.ttf"),
+    "Montserrat-Bold": require("../../../assets/fonts/Montserrat-Bold.ttf"),
+    "Montserrat-ExtraBold": require("../../../assets/fonts/Montserrat-ExtraBold.ttf"),
   });
   const { doctor } = props.route.params;
   const { doctorSpec } = props.route.params;
@@ -38,12 +39,12 @@ const Doctor = (props) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
+    setShow(Platform.OS === "ios");
     setDate(currentDate);
   };
 
   useEffect(() => {
-    console.log('Resumen');
+    console.log("Resumen");
     async function retrieveSchedules() {
       const response = await ajax.schedulesDoctor(doctor.id);
       Schedules(response.body);
@@ -60,9 +61,9 @@ const Doctor = (props) => {
   }, [date]);
 
   const createAppointment = () => {
-    if (!selectedProfile || !selectedschedule) alert('Completar datos');
+    if (!selectedProfile || !selectedschedule) alert("Completar datos");
     else
-      props.navigation.navigate('NewAppointment', {
+      props.navigation.navigate("NewAppointment", {
         doctor,
         date,
         schedule: selectedschedule,
@@ -90,7 +91,7 @@ const Doctor = (props) => {
     return <AppLoading />;
   } else {
     return (
-      <View style={{ flex: 1, backgroundColor: '#F6F7FA' }}>
+      <ScrollView style={{ flex: 1, backgroundColor: "#F6F7FA" }}>
         <View style={styles.header}>
           <Text style={styles.headTitle}>Reservar cita</Text>
         </View>
@@ -98,11 +99,11 @@ const Doctor = (props) => {
         <View style={styles.section}>
           <Text style={styles.secTitle}>Doctor Seleccionado</Text>
           <View style={styles.topDoc}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ flex: 1, flexDirection: "row" }}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'flex-start',
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
                 }}
               >
                 <Image
@@ -114,13 +115,13 @@ const Doctor = (props) => {
               <View
                 style={{
                   flex: 1,
-                  flexDirection: 'column',
+                  flexDirection: "column",
                   marginHorizontal: 10,
                 }}
               >
                 <View>
                   <Text style={styles.docNameText}>
-                    {doctor.idGender === 1 ? 'Dr.' : 'Dra.'} {doctor.name}{' '}
+                    {doctor.idGender === 1 ? "Dr." : "Dra."} {doctor.name}{" "}
                     {doctor.lastName}
                   </Text>
                 </View>
@@ -131,8 +132,8 @@ const Doctor = (props) => {
             </View>
             <View
               style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
+                flexDirection: "row",
+                justifyContent: "flex-end",
                 marginRight: 5,
               }}
             >
@@ -145,11 +146,11 @@ const Doctor = (props) => {
           <Text style={styles.secTitle}>Seleccione Fecha</Text>
           <View
             style={{
-              flexDirection: 'row',
-              backgroundColor: 'white',
+              flexDirection: "row",
+              backgroundColor: "white",
               borderRadius: 15,
               padding: 10,
-              justifyContent: 'space-between',
+              justifyContent: "space-between",
               marginTop: 25,
             }}
           >
@@ -157,22 +158,22 @@ const Doctor = (props) => {
               onPress={() => setShow(true)}
               style={{
                 fontSize: 14,
-                fontFamily: 'Montserrat-Medium',
-                color: '#2F2929',
+                fontFamily: "Montserrat-Medium",
+                color: "#2F2929",
                 paddingLeft: 30,
-                alignContent: 'center',
-                textAlignVertical: 'center',
+                alignContent: "center",
+                textAlignVertical: "center",
               }}
             >
               {date.getFullYear() +
-                '-' +
+                "-" +
                 (date.getMonth() < 10
-                  ? '0' + (date.getMonth() + 1)
+                  ? "0" + (date.getMonth() + 1)
                   : date.getMonth() + 1) +
-                '-' +
-                (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())}
+                "-" +
+                (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())}
             </Text>
-            <View style={{ alignContent: 'center', marginRight: 10 }}>
+            <View style={{ alignContent: "center", marginRight: 10 }}>
               <Icon
                 name="ios-calendar"
                 type="ionicon"
@@ -201,8 +202,8 @@ const Doctor = (props) => {
           </Text>
           <View
             style={{
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              justifyContent: "space-between",
+              alignItems: "center",
               marginTop: 25,
             }}
           >
@@ -249,9 +250,9 @@ const Doctor = (props) => {
             numColumns="2"
             renderItem={({ item }) => (
               <View
-                style={{ width: '50%', alignItems: 'center', marginBottom: 20 }}
+                style={{ width: "50%", alignItems: "center", marginBottom: 20 }}
               >
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: "center" }}>
                   <TouchableOpacity onPress={() => SelectedProfile(item)}>
                     <Image
                       style={
@@ -271,12 +272,12 @@ const Doctor = (props) => {
             keyExtractor={(item) => item.id}
           />
         </View>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
           <Button style={styles.Button2} onPress={createAppointment}>
             Continnuar
           </Button>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 };
@@ -288,30 +289,30 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   headTitle: {
-    fontFamily: 'Montserrat-ExtraBold',
+    fontFamily: "Montserrat-ExtraBold",
     fontSize: 28,
-    color: '#414968',
+    color: "#414968",
     marginBottom: 5,
   },
   section: {
     marginHorizontal: 25,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 25,
   },
   secSched: {
     marginHorizontal: 25,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginBottom: 5,
   },
   secTitle: {
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 20,
-    color: '#414968',
+    color: "#414968",
   },
   topDoc: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
     borderRadius: 15,
     padding: 15,
     marginTop: 25,
@@ -323,90 +324,90 @@ const styles = StyleSheet.create({
   },
   docNameText: {
     fontSize: 16,
-    fontFamily: 'Montserrat-Bold',
-    color: '#2F2929',
+    fontFamily: "Montserrat-Bold",
+    color: "#2F2929",
   },
   docSpecText: {
     fontSize: 12,
-    fontFamily: 'Montserrat-Medium',
-    color: '#4F4F4F',
+    fontFamily: "Montserrat-Medium",
+    color: "#4F4F4F",
   },
   secSubtitle: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     fontSize: 14,
-    color: '#828282',
+    color: "#828282",
   },
   schedBox: {
-    backgroundColor: '#EAECF4',
+    backgroundColor: "#EAECF4",
     height: 50,
     borderRadius: 15,
     padding: 20,
-    width: '47%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "47%",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 20,
     marginHorizontal: 5,
   },
   schedBoxSelected: {
-    backgroundColor: '#639BEF',
+    backgroundColor: "#639BEF",
     height: 50,
     borderRadius: 15,
     padding: 20,
-    width: '47%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "47%",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 20,
     marginHorizontal: 5,
   },
   schedTxt: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     fontSize: 16,
-    color: '#2F2929',
+    color: "#2F2929",
   },
   schedTxtSelected: {
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: "Montserrat-Medium",
     fontSize: 16,
-    color: 'white',
+    color: "white",
   },
   Button: {
-    backgroundColor: '#639BEF',
-    textAlignVertical: 'center',
-    color: 'white',
+    backgroundColor: "#639BEF",
+    textAlignVertical: "center",
+    color: "white",
     borderRadius: 15,
     height: 50,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 16,
   },
   ButtonSelected: {
-    backgroundColor: 'green',
-    textAlignVertical: 'center',
-    color: 'white',
+    backgroundColor: "green",
+    textAlignVertical: "center",
+    color: "white",
     borderRadius: 15,
     height: 50,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 16,
   },
   Image: {
     width: 140,
     height: 100,
-    borderColor: '#dddddd',
+    borderColor: "#dddddd",
     borderWidth: 1,
   },
   ImageSelected: {
     width: 140,
     height: 100,
-    borderColor: '#dddddd',
+    borderColor: "#dddddd",
     borderWidth: 1,
     opacity: 0.3,
   },
   Button2: {
-    backgroundColor: '#639BEF',
-    textAlignVertical: 'center',
-    color: 'white',
+    backgroundColor: "#639BEF",
+    textAlignVertical: "center",
+    color: "white",
     borderRadius: 15,
     height: 50,
     width: 360,
-    fontFamily: 'Montserrat-Bold',
+    fontFamily: "Montserrat-Bold",
     fontSize: 16,
   },
 });
