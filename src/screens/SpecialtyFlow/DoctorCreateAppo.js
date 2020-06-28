@@ -119,12 +119,11 @@ const Doctor = (props) => {
               source={{ uri: item.imageUrl }}
             />
             <Text
-              style={{
-                fontFamily: 'Montserrat-Medium',
-                fontSize: 14,
-                marginTop: 15,
-                textAlign: 'center',
-              }}
+              style={
+                selectedProfile && selectedProfile.id == item.id
+                  ? styles.ProfileNameSelected
+                  : styles.ProfileName
+              }
             >
               {item.name}
             </Text>
@@ -419,8 +418,8 @@ const styles = StyleSheet.create({
   ImageSelected: {
     width: 60,
     height: 60,
-    borderColor: '#dddddd',
-    borderWidth: 1,
+    borderColor: '#639BEF',
+    borderWidth: 2,
     borderRadius: 30,
     opacity: 0.3,
   },
@@ -433,6 +432,20 @@ const styles = StyleSheet.create({
     width: 360,
     fontFamily: 'Montserrat-Bold',
     fontSize: 16,
+  },
+  ProfileName: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 14,
+    marginTop: 15,
+    textAlign: 'center',
+    color: '#2F2929',
+  },
+  ProfileNameSelected: {
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 14,
+    marginTop: 15,
+    textAlign: 'center',
+    color: '#639BEF',
   },
 });
 
