@@ -148,14 +148,7 @@ const NewAppointment = (props) => {
           <Text style={styles.Info}>{patient.name}</Text>
         </View>
 
-        <View
-          style={{
-            flex: 1,
-            marginHorizontal: 25,
-            justifyContent: 'flex-end',
-            marginBottom: 25,
-          }}
-        >
+        <View style={styles.secButton}>
           <Button style={styles.Button} onPress={createAppointment}>
             Confirmar
           </Button>
@@ -232,11 +225,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
-  Image: {
-    width: 140,
-    height: 100,
-    borderColor: '#dddddd',
-    borderWidth: 1,
+  secButton: {
+    flex: 1,
+    marginHorizontal: 25,
+    justifyContent: 'flex-end',
+    marginBottom: 25,
   },
 });
 
